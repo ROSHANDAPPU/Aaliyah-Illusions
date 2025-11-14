@@ -1,0 +1,77 @@
+---
+title: "Print Components"
+description: "Documentation for print-specific styles and components"
+---
+
+# Print Components
+
+This section documents specific styles and components designed for print media.
+
+## Print Layout
+
+Print layouts are optimized for physical paper output with considerations for readability, ink usage, and page breaks.
+
+### Key Considerations
+
+- **Navigation Removal**: Header navigation and interactive elements are hidden in print
+- **Font Adjustments**: Serif fonts may be preferred for print readability
+- **Color Optimization**: Ensure sufficient contrast with black ink on white paper
+- **Page Breaks**: Avoid breaking content mid-paragraph or table rows
+
+### CSS Print Rules
+
+```css
+@media print {
+  /* Hide interactive elements */
+  .navigation,
+  .buttons,
+  .interactive-elements {
+    display: none !important;
+  }
+
+  /* Adjust typography for print */
+  body {
+    font-family: 'Times New Roman', serif;
+    font-size: 12pt;
+    line-height: 1.4;
+  }
+
+  /* Ensure sufficient contrast */
+  .text-light {
+    color: black !important;
+  }
+
+  /* Control page breaks */
+  .page-break-before {
+    page-break-before: always;
+  }
+
+  .page-break-inside-avoid {
+    page-break-inside: avoid;
+  }
+}
+```
+
+## Print-Specific Styles
+
+### Business Cards
+
+Standard business card layout with logo, contact information, and branding.
+
+- **Size**: 3.5" × 2"
+- **Bleed**: 0.125" on all sides
+- **Safe Area**: 0.125" from trim
+- **Typography**: Use brand fonts with minimum 8pt size for readability
+
+### Thank You Cards
+
+Branded cards included in shipments with personalized messaging.
+
+- **Size**: 4" × 6" (folded) or 5" × 7" (flat)
+- **Paper Stock**: 100lb gloss cover or similar premium stock
+- **Branding**: Include logo and consistent color scheme
+- **Personalization**: Space for handwritten customer names and messages
+
+### Print Stylesheets
+
+All print styles are defined in dedicated print CSS files or `@media print` queries to ensure clean, professional output when users print web pages.

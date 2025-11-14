@@ -1,0 +1,172 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .animated-brand-text {
+    font-family: "Cinzel", serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: transparent;
+    background-image: linear-gradient(135deg, #29CEF2 0%, #3DD8FC 50%, #29CEF2 100%);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: sheen 4s ease-in-out infinite;
+  }
+
+  @keyframes sheen {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animated-brand-text {
+      animation: none;
+    }
+  }
+
+  /* Footer Styles */
+  .footer_footer {
+    position: relative;
+    background-color: #000000;
+    overflow: hidden;
+    padding: 6rem 1.5rem 4rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    /* background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='3.5' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' /%3E%3C/svg%3E"); */
+  }
+
+  .footer_bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* Place it behind all content */
+    /* Cinematic gradient background */
+    background: radial-gradient(
+      circle at 50% 10%,
+      rgba(255, 255, 255, 0.1) 0%, /* Subtle white glow at the top */
+      rgba(0, 0, 0, 0) 60%
+    ), linear-gradient(
+      to bottom,
+      rgba(20, 20, 20, 0.8) 0%,
+      rgba(0, 0, 0, 1) 100%
+    );
+    opacity: 0.8;
+  }
+
+  .footer_container {
+    max-width: 1600px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer_top {
+    margin-bottom: 4rem;
+  }
+
+  .footer_middle {
+    display: flex;
+    justify-content: center; /* Center the logo horizontally */
+    align-items: center;
+    padding: 30px 0; /* Add vertical padding around the logo */
+    min-height: 250px; /* Give the logo vertical space */
+    margin-bottom: 4rem;
+  }
+
+  .footer_middle svg {
+    /* Make the SVG responsive */
+    width: 100%;
+    max-width: 1200px; /* Limit the maximum width on large screens */
+    height: auto;
+    display: block;
+  }
+
+  .footer_bottom {
+    padding-top: 2rem;
+    border-top: 1px solid #374151;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+  }
+}
+
+/* FAQ Section Styles */
+.faq-section {
+  position: relative;
+  padding: 80px 20px;
+  background: #000; /* dark background like your site */
+  color: #fff;
+  text-align: center;
+}
+
+.faq-heading {
+  font-size: 6rem;
+  opacity: 0.05;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  user-select: none;
+}
+
+.faq-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  perspective: 1500px;
+  z-index: 1;
+  position: relative;
+}
+
+.faq-card {
+  width: 300px;
+  height: 200px;
+  cursor: pointer;
+}
+
+.faq-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: left;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.faq-card:hover .faq-card-inner {
+  transform: rotateY(180deg);
+}
+
+.faq-card.flipped .faq-card-inner {
+  transform: rotateY(180deg);
+}
+
+.faq-card-front,
+.faq-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.faq-card-front {
+  background: rgba(255, 255, 255, 0.05);
+  font-weight: bold;
+}
+
+.faq-card-back {
+  background: rgba(255, 255, 255, 0.15);
+  transform: rotateY(180deg);
+}

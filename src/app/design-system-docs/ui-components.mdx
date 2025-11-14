@@ -1,0 +1,144 @@
+---
+title: "UI Components"
+description: "Documentation for reusable UI components"
+---
+
+# UI Components
+
+This section documents the reusable UI components used throughout the application.
+
+## Button
+
+The Button component is used to trigger actions and guide user interactions.
+
+### Props
+
+| Prop | Type | Required | Default | Description |
+|------|------|----------|---------|-------------|
+| `children` | `ReactNode` | Yes | - | The content to display inside the button |
+| `variant` | `'primary' \| 'secondary' \| 'ghost'` | No | `'primary'` | The visual style variant of the button |
+| `size` | `'sm' \| 'md' \| 'lg'` | No | `'md'` | The size of the button |
+| `disabled` | `boolean` | No | `false` | Whether the button is disabled |
+| `onClick` | `function` | No | - | Callback fired when the button is clicked |
+
+### Usage Examples
+
+```tsx
+import { Button } from '@/components/ui/button'
+
+// Primary button
+<Button>Click me</Button>
+
+// Secondary button with click handler
+<Button variant="secondary" onClick={() => console.log('Clicked')}>
+  Secondary Action
+</Button>
+
+// Disabled button
+<Button disabled>Disabled</Button>
+```
+
+### Variants
+
+- **Primary**: Main call-to-action buttons, high emphasis
+- **Secondary**: Supporting actions, medium emphasis
+- **Ghost**: Minimal styling, used in less prominent areas
+
+## Card
+
+The Card component is a container for grouping related content and actions.
+
+### Props
+
+| Prop | Type | Required | Default | Description |
+|------|------|----------|---------|-------------|
+| `children` | `ReactNode` | Yes | - | The content to display inside the card |
+| `className` | `string` | No | - | Additional CSS classes |
+| `padding` | `'sm' \| 'md' \| 'lg'` | No | `'md'` | Internal padding size |
+
+### Usage Examples
+
+```tsx
+import { Card } from '@/components/ui/card'
+
+// Basic card
+<Card>
+  <h3>Card Title</h3>
+  <p>Card content goes here.</p>
+</Card>
+
+// Card with custom padding
+<Card padding="lg">
+  <div className="space-y-4">
+    <h3>Large Card</h3>
+    <p>More content with larger padding.</p>
+    <Button>Action</Button>
+  </div>
+</Card>
+```
+
+### Best Practices
+
+- Use cards to group related information
+- Include a clear hierarchy with headings and supporting text
+- Consider the padding needs based on content complexity
+
+## Animated Brand Text
+
+The Animated Brand Text component creates a metallic gradient text effect with a sweeping animation for brand elements like logos.
+
+### Props
+
+| Prop | Type | Required | Default | Description |
+|------|------|----------|---------|-------------|
+| `text` | `string` | Yes | - | The text to display with the animation |
+| `className` | `string` | No | - | Additional CSS classes |
+
+### Usage Examples
+
+```tsx
+import { AnimatedBrandText } from '@/components/ui/animated-brand-text'
+
+// Basic usage
+<AnimatedBrandText text="Aaliyah Illusions" />
+```
+
+### CSS Implementation
+
+The component uses CSS `background-clip: text` with an animated gradient:
+
+```css
+.animated-brand-text {
+  font-family: "Geometric Sans", sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: transparent;
+  background-image: linear-gradient(135deg,
+    #bfbfbf 0%,
+    #e5e5e5 30%,
+    #a3a3a3 60%,
+    #d9d9d9 100%);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: sheen 4s ease-in-out infinite;
+}
+
+@keyframes sheen {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animated-brand-text {
+    animation: none;
+  }
+}
+```
+
+### Accessibility Considerations
+
+- Includes `prefers-reduced-motion` support to disable animation for users who prefer reduced motion
+- Animation frequency is below 3 flashes per second to avoid triggering seizures
+- Text remains readable even without the animation effect

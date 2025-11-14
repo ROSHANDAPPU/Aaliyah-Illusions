@@ -1,0 +1,83 @@
+---
+title: "Accessibility Guidelines"
+description: "Guidelines for ensuring application accessibility"
+---
+
+# Accessibility Guidelines
+
+This section provides guidelines to ensure the application is accessible to all users, including those with disabilities.
+
+## General Principles
+
+### WCAG Compliance
+
+The application adheres to WCAG 2.1 AA standards, ensuring:
+
+- **Perceivable**: Information and user interface components must be presentable to users in ways they can perceive
+- **Operable**: User interface components and navigation must be operable
+- **Understandable**: Information and the operation of user interface must be understandable
+- **Robust**: Content must be robust enough that it can be interpreted reliably by a wide variety of user agents
+
+### Semantic HTML
+
+- Use proper heading hierarchy (h1-h6) for content structure
+- Implement landmark roles for major page sections
+- Use semantic elements like `<nav>`, `<main>`, `<aside>`, `<footer>`
+
+### Keyboard Navigation
+
+- All interactive elements must be accessible via keyboard
+- Tab order should follow logical reading order
+- Provide visible focus indicators with sufficient contrast (3:1 ratio minimum)
+- Include keyboard shortcuts where appropriate
+
+## Specific Components
+
+### Forms
+
+- Associate labels with form controls using `<label>` elements or `aria-label`
+- Provide clear error messages that are programmatically associated with form fields
+- Use `aria-describedby` to link help text with form controls
+- Ensure form validation messages are announced to screen readers
+
+### Navigation
+
+- Include skip links to bypass repetitive navigation
+- Use descriptive link text (avoid "click here" or "read more")
+- Provide breadcrumb navigation for complex page hierarchies
+- Ensure navigation menus are keyboard accessible and announce state changes
+
+### Interactive Elements
+
+- Buttons should have descriptive text or accessible names
+- Use appropriate ARIA states (aria-expanded, aria-selected, etc.)
+- Ensure sufficient color contrast ratios:
+  - Normal text: 4.5:1
+  - Large text: 3:1
+  - UI components: 3:1
+- Provide text alternatives for non-text content
+
+## Testing
+
+### Automated Tools
+
+- **axe-core**: JavaScript library for automated accessibility testing
+- **Lighthouse**: Built-in Chrome DevTools accessibility audit
+- **WAVE**: Web accessibility evaluation tool
+
+### Manual Testing
+
+- Keyboard-only navigation testing
+- Screen reader testing with NVDA, JAWS, or VoiceOver
+- Color contrast verification with tools like Color Contrast Analyzer
+- Testing with actual assistive technologies
+
+### Browser Extensions
+
+- axe DevTools Chrome extension
+- WAVE Web Accessibility Evaluation Tool
+- Accessibility Insights for Web
+
+### Regular Audits
+
+Conduct accessibility audits quarterly and after major feature releases to ensure ongoing compliance.
