@@ -30,17 +30,14 @@ export default function AboutSection() {
         </div>
 
         {/* Description */}
-        <p className="text-xl text-gray-500 mb-16 max-w-3xl mx-auto leading-relaxed font-light">
+        <p className="text-xl text-gray-500 mb-16 max-w-3xl mx-auto leading-relaxed font-light iceland-font">
           Our team excels in crafting captivating visuals to showcase creations, engaging audiences, and business growth
         </p>
 
         {/* CTA Button */}
-        <Button
-          size="lg"
-          className="bg-[#29CEF2] text-black hover:bg-[#3DD8FC] font-black text-sm px-10 py-6 uppercase tracking-wider transition-all hover:shadow-[0_12px_40px_rgba(41,206,242,0.2)] hover:scale-105"
-        >
+        <button className="read-more-button">
           READ MORE
-        </Button>
+        </button>
 
         {/* Scrolling Text Loop */}
         <div className="mt-32 overflow-hidden">
@@ -84,6 +81,24 @@ export default function AboutSection() {
         }
         .animate-scroll-loop-slow {
             animation: scroll-loop-slow 60s linear infinite;
+        }
+
+        .read-more-button {
+          font-size: 10px;
+          font-weight: 300;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: rgba(255, 255, 255, 0.8);
+          transition: color 0.3s, border-color 0.3s;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          padding: 8px 24px;
+          background: none;
+          cursor: pointer;
+        }
+
+        .read-more-button:hover {
+          color: #29CEF2;
+          border-color: #29CEF2;
         }
       `}</style>
     </section>

@@ -1,6 +1,5 @@
 "use client";
-import Image from "next/image";
-import { useEffect, useState, useRef } from "react";
+import { useEffect } from "react";
 import Navigation from "../../components/home/Navigation";
 import Footer from "../../components/home/Footer";
 
@@ -44,95 +43,89 @@ const services = [
 ];
 
 export default function Services() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
-  const [visibleCards, setVisibleCards] = useState<Set<string>>(new Set());
-  const cardRefs = useRef<(HTMLAnchorElement | null)[]>([]);
-  const heroRef = useRef<HTMLElement>(null);
-
   useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-      setIsScrolled(window.scrollY > 50);
+    // Load GSAP scripts
+    const gsapScript = document.createElement('script');
+    gsapScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js';
+    gsapScript.onload = () => {
+      const scrollTriggerScript = document.createElement('script');
+      scrollTriggerScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js';
+      scrollTriggerScript.onload = initGSAP;
+      document.head.appendChild(scrollTriggerScript);
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    document.head.appendChild(gsapScript);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const target = entry.target as HTMLElement;
-          if (entry.isIntersecting && target.dataset.index) {
-            setVisibleCards((prev) => new Set([...Array.from(prev), target.dataset.index!]));
-          }
+    function initGSAP() {
+      // @ts-ignore
+      gsap.registerPlugin(window.ScrollTrigger);
+
+      // @ts-ignore
+      const cards = gsap.utils.toArray(".service-card");
+
+      // @ts-ignore
+      let tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".services-pin-container",
+          start: "top top",
+          end: "+=200%",
+          pin: true,
+          scrub: 1,
+          anticipatePin: 1
+        }
+      });
+
+      cards.forEach((card: any, i: number) => {
+        if (i === 0) return;
+
+        tl.from(card, {
+          yPercent: 100,
+          opacity: 0,
+          scale: 0.9,
+          duration: 1,
+          ease: "power2.out"
         });
-      },
-      { threshold: 0.1 }
-    );
-
-    cardRefs.current.forEach((ref) => {
-      if (ref) observer.observe(ref);
-    });
-
-    return () => observer.disconnect();
+      });
+    }
   }, []);
 
   return (
-    <div className="text-neutral-text-light min-h-screen overflow-hidden" style={{ background: 'linear-gradient(to bottom, #222 0%, #29CEF2 100%)' }}>
-      <Navigation isScrolled={isScrolled} />
-      <main className="text-white min-h-screen">
+    <div style={{ backgroundColor: '#000', color: '#fff', fontFamily: 'Proza Libre, sans-serif', margin: 0, overflowX: 'hidden' }}>
+      <Navigation isScrolled={false} />
+      <main>
         {/* Hero Section */}
-        <section ref={heroRef} className="hero relative h-screen flex items-center justify-center overflow-hidden px-6" style={{ backgroundColor: '#000' }}>
+        <section className="hero relative h-screen flex items-center justify-center overflow-hidden px-6" style={{ backgroundColor: '#000' }}>
           <div className="hero-text absolute text-center font-black uppercase text-white mix-blend-mode-screen opacity-80" style={{ fontSize: '15vw', letterSpacing: '-2vw' }}>
             SERVICES
           </div>
-          <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[#222] to-transparent"></div>
+          <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[#000] to-transparent"></div>
         </section>
 
-      {/* Services List */}
-      <section className="py-24 px-6 md:px-16 flex flex-col gap-24 services-list" style={{ background: 'linear-gradient(to bottom, #222 0%, #29CEF2 50%, #000 100%)' }}>
-        <div className="max-w-[1200px] mx-auto">
+        {/* Services List */}
+        <section className="services-section">
           {services.map((service, idx) => (
-            <div
+            <article
               key={service.title}
-              className={`group overflow-hidden rounded-lg shadow-lg transform transition-transform duration-700 service-card ${
-                visibleCards.has(idx.toString()) ? "animate" : ""
-              } flex flex-col md:flex-row h-[350px] md:h-[400px]`}
-              style={{ background: idx >= 4 ? 'linear-gradient(to bottom, #222 0%, #29CEF2 100%)' : (idx >= 2 && idx <= 3 ? '#29CEF2' : 'linear-gradient(to bottom, #222 0%, #29CEF2 100%)') }}
-              ref={(el: HTMLDivElement | null) => {
-                cardRefs.current[idx] = el as HTMLAnchorElement | null;
-              }}
-              data-index={idx.toString()}
+              className="service-card"
+              style={{ backgroundImage: `url(${service.image})` }}
             >
-              <div className="relative h-64 md:h-full md:w-1/2 overflow-hidden">
-                <Image
-                  src={service.image}
-                  alt={service.title}
-                  fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-500"
-                />
+              <div className="service-content">
+                <h3 className="service-title">{service.title}</h3>
+                <p className="service-description">{service.description}</p>
+                <a href={service.link} className="service-link">
+                  VIEW PORTFOLIO
+                </a>
               </div>
-              <div className="p-6 md:w-1/2 flex flex-col justify-center bg-gray-900">
-                <h3 className="text-2xl font-semibold uppercase mb-4" style={{ letterSpacing: '1px' }}>{service.title}</h3>
-                <p className="text-base text-gray-300 mb-6 flex-grow">{service.description}</p>
-                <a href={service.link} className="text-[#29CEF2] font-bold uppercase text-sm hover:text-white transition-colors self-start" style={{ letterSpacing: '1px' }}>Portfolio</a>
-              </div>
-            </div>
+            </article>
           ))}
-        </div>
-      </section>
+        </section>
 
-      {/* Contact CTA */}
-      <section className="py-24 text-center px-6 contact-section" style={{ backgroundColor: '#000', marginBottom: '0' }}>
-        <h2 className="text-3xl md:text-4xl font-bold mb-6 fade-in-animate">
-          Have any questions?
-        </h2>
-        <button className="px-6 py-3 bg-white text-black font-bold rounded hover:bg-gray-200 transition">
-          Let's Talk
-        </button>
-      </section>
+        {/* Contact CTA */}
+        <section className="cta-section">
+          <h1>Ready to create memories?</h1>
+          <a href="/contact" className="cta-button">
+            GET IN TOUCH
+          </a>
+        </section>
 
       </main>
       <div style={{ marginTop: '0', paddingTop: '0' }}>
@@ -146,79 +139,122 @@ export default function Services() {
         }
       `}</style>
 
-      {/* Styled JSX for animations */}
       <style jsx>{`
         .hero-text {
           animation: floatText 12s ease-in-out infinite alternate;
         }
-
-        .fade-in-animate {
-          opacity: 0;
-          animation: fadeIn 1s forwards;
-        }
-        .service-card {
-          opacity: 0;
-          transform: translateY(60px);
-        }
-        .service-card.animate {
-          animation: fadeInUpStagger 0.8s forwards;
-        }
-        .service-card:hover {
-          transform: translateY(-10px);
-          box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-        }
-
         @keyframes floatText {
           0% { transform: translateY(-20px) rotate(-2deg); }
           50% { transform: translateY(20px) rotate(2deg); }
           100% { transform: translateY(-20px) rotate(-2deg); }
         }
 
-        @keyframes fadeInUpStagger {
-          0% {
-            opacity: 0;
-            transform: translateY(60px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0);
-          }
+        .services-section {
+          height: 100vh;
+          overflow-y: auto;
+          scroll-snap-type: y mandatory;
+          -webkit-overflow-scrolling: touch;
         }
 
-        @keyframes fadeIn {
-          0% {
-            opacity: 0;
-          }
-          100% {
-            opacity: 1;
-          }
-        }
-
-        .services-list {
+        .service-card {
+          scroll-snap-align: start;
+          height: 100vh;
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
           display: flex;
-          flex-direction: column;
-          gap: 30px;
-        }
-        .contact-section {
+          align-items: center;
+          justify-content: center;
           position: relative;
+          color: white;
         }
-        .bg-gradient-radial::before {
+
+        .service-card::before {
           content: '';
           position: absolute;
           top: 0;
           left: 0;
           right: 0;
-          height: 25%;
-          background: linear-gradient(45deg, #29CEF2 0%, transparent 100%);
-        }
-        .bg-gradient-radial::after {
-          content: '';
-          position: absolute;
           bottom: 0;
-          left: 0;
-          right: 0;
-          height: 25%;
-          background: linear-gradient(45deg, transparent 0%, #29CEF2 100%);
+          background: rgba(0, 0, 0, 0.5);
+          z-index: 1;
+        }
+
+        .service-content {
+          position: relative;
+          z-index: 2;
+          text-align: center;
+          max-width: 600px;
+          padding: 0 20px;
+        }
+
+        .service-title {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 3rem;
+          font-weight: 400;
+          margin-bottom: 1rem;
+          letter-spacing: -0.5px;
+        }
+
+        .service-description {
+          font-family: 'Proza Libre', sans-serif;
+          font-size: 1.1rem;
+          line-height: 1.6;
+          margin-bottom: 2rem;
+          color: #ccc;
+        }
+
+        .service-link {
+          display: inline-block;
+          font-family: 'Proza Libre', sans-serif;
+          font-size: 11px;
+          text-transform: uppercase;
+          letter-spacing: 2px;
+          border-bottom: 1px solid rgba(255,255,255,0.3);
+          padding-bottom: 4px;
+          transition: border-color 0.3s;
+          color: white;
+        }
+
+        .service-card:hover .service-link {
+          border-color: #fff;
+        }
+
+        .cta-section {
+          height: 100vh;
+          background: #000;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          border-top: 1px solid #333;
+          z-index: 5;
+          position: relative;
+        }
+
+        .cta-section h1 {
+          font-family: 'Iceland', sans-serif;
+          font-size: 3rem;
+          margin-bottom: 2rem;
+          color: #fff;
+        }
+
+        .cta-button {
+          font-size: 10px;
+          font-weight: 300;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: rgba(255, 255, 255, 0.8);
+          transition: color 0.3s, border-color 0.3s;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          padding: 8px 24px;
+          text-decoration: none;
+          display: inline-block;
+        }
+
+        .cta-button:hover {
+          color: #29CEF2;
+          border-color: #29CEF2;
         }
 
         @media (max-width: 768px) {
@@ -226,8 +262,17 @@ export default function Services() {
             font-size: 25vw !important;
             letter-spacing: -4vw !important;
           }
-          .bg-gradient-radial {
-            background: linear-gradient(135deg, #29CEF2 0%, #000 100%);
+          .services-header h2 {
+            font-size: 40px;
+          }
+          .chapter-num {
+            font-size: 60px;
+          }
+          .card-content h3 {
+            font-size: 32px;
+          }
+          .card-content p {
+            font-size: 16px;
           }
         }
       `}</style>

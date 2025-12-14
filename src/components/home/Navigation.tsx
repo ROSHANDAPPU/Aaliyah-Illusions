@@ -1,15 +1,22 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 
 export default function Navigation({ isScrolled }: { isScrolled: boolean }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [logoSrc, setLogoSrc] = useState("/LOGO MAIN.JPG");
+
+  useEffect(() => {
+    setLogoSrc(isScrolled ? "/LOGO1.png" : "/LOGO MAIN.JPG");
+  }, [isScrolled]);
 
   const menuItems = [
     { name: "SERVICES", href: "/services" },
-    { name: "PORTFOLIO", href: "#portfolio" },
-    { name: "CONTACT", href: "#contact" }
+    { name: "PORTFOLIO", href: "/portfolio" },
+    { name: "GALLERY", href: "/gallery" },
+    { name: "ABOUT", href: "/about" },
+    { name: "CONTACT", href: "/contact" }
   ];
 
   return (
@@ -20,40 +27,79 @@ export default function Navigation({ isScrolled }: { isScrolled: boolean }) {
     >
       <div className="max-w-[1600px] mx-auto px-6 lg:px-8">
         <div className="flex justify-between items-center h-24">
-          {/* Logo */}
-          <div className="text-2xl font-black tracking-tight">
-            <span className="text-primary">VIS</span>
-            <span className="text-neutral-text-light">≡</span>
-            <span className="text-neutral-text-light">NTA</span>
-          </div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center gap-12">
-            {menuItems.map((item) => (
+          <div className="hidden md:flex flex-1 items-center">
+            {/* Left Menu Items */}
+            <div className="flex items-center gap-12">
               <a
-                key={item.name}
-                href={item.href}
+                href="/services"
                 className="text-[10px] font-light tracking-[0.2em] uppercase text-white/80 hover:text-[#29CEF2] transition-colors relative group"
               >
-                {item.name}
+                SERVICES
                 <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#29CEF2] transition-all duration-300 group-hover:w-full" />
               </a>
-            ))}
-            <a
-              href="/sign-in"
-              className="text-[10px] font-light tracking-[0.2em] uppercase text-white/80 hover:text-[#29CEF2] transition-colors border border-white/20 px-6 py-2 hover:border-[#29CEF2]"
-            >
-              SIGN IN
-            </a>
+              <a
+                href="/portfolio"
+                className="text-[10px] font-light tracking-[0.2em] uppercase text-white/80 hover:text-[#29CEF2] transition-colors relative group"
+              >
+                PORTFOLIO
+                <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#29CEF2] transition-all duration-300 group-hover:w-full" />
+              </a>
+               <a
+                href="/gallery"
+                className="text-[10px] font-light tracking-[0.2em] uppercase text-white/80 hover:text-[#29CEF2] transition-colors relative group"
+              >
+                GALLERY
+                <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#29CEF2] transition-all duration-300 group-hover:w-full" />
+              </a>
+
+            </div>
+
+            {/* Centered Logo */}
+            <div className="flex-1 flex justify-center">
+              <a href="/">
+                <img src={logoSrc} alt="Aaliyah Illusions Logo" className="h-8 w-auto" />
+              </a>
+            </div>
+
+            {/* Right Menu Items */}
+            <div className="flex items-center gap-12">
+              <a
+                href="/about"
+                className="text-[10px] font-light tracking-[0.2em] uppercase text-white/80 hover:text-[#29CEF2] transition-colors relative group"
+              >
+                ABOUT
+                <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#29CEF2] transition-all duration-300 group-hover:w-full" />
+              </a>
+              <a
+                href="/contact"
+                className="text-[10px] font-light tracking-[0.2em] uppercase text-white/80 hover:text-[#29CEF2] transition-colors relative group"
+              >
+                CONTACT
+                <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#29CEF2] transition-all duration-300 group-hover:w-full" />
+              </a>
+              <a
+                href="/login"
+                className="text-[10px] font-light tracking-[0.2em] uppercase text-white/80 hover:text-[#29CEF2] transition-colors border border-white/20 px-6 py-2 hover:border-[#29CEF2]"
+              >
+                LOGIN
+              </a>
+            </div>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-white"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          {/* Mobile Menu Button and Logo */}
+          <div className="md:hidden flex justify-between items-center w-full">
+            <a href="/">
+              <img src={logoSrc} alt="Aaliyah Illusions Logo" className="h-8 w-auto" />
+            </a>
+            <button
+              className="text-white"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Menu */}
@@ -70,10 +116,10 @@ export default function Navigation({ isScrolled }: { isScrolled: boolean }) {
               </a>
             ))}
             <a
-              href="/sign-in"
+              href="/login"
               className="block text-sm font-light tracking-[0.2em] uppercase text-center border border-white/20 px-6 py-3 hover:border-[#29CEF2] hover:text-[#29CEF2] transition-colors"
             >
-              SIGN IN
+              LOGIN
             </a>
           </div>
         )}

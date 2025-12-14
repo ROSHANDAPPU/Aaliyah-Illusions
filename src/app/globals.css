@@ -1,10 +1,48 @@
+@import "../components/ui/pulsing-blue-fire.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Iceland';
+  src: url('/Iceland-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.iceland-font {
+  font-family: 'Iceland' !important;
+}
+
+/* Mobile */
+.faq-background-text {
+  font-size: 10rem;      /* 160px */
+}
+
+/* Medium screens */
+@media (min-width: 640px) {
+  .faq-background-text {
+    font-size: 14rem;    /* 224px */
+  }
+}
+
+/* Large screens */
+@media (min-width: 1024px) {
+  .faq-background-text {
+    font-size: 20rem;   /* 320px */
+  }
+}
+
+/* Extra Large */
+@media (min-width: 1280px) {
+  .faq-background-text {
+    font-size: 28rem;   /* 448px */
+  }
+}
+
 @layer components {
   .animated-brand-text {
-    font-family: "Cinzel", serif;
+    font-family: "Iceland", serif;
     font-weight: 900;
     text-transform: uppercase;
     color: transparent;
@@ -92,19 +130,33 @@
     align-items: center;
     gap: 1.5rem;
   }
+  
+  .why-choose-heading {
+    font-size: clamp(7vw, 9vw, 48px);
+    align-self: start;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+}
+
+.why-choose-description {
+    font-size: 0.875rem;
+    font-weight: 300;
+    align-self: start;
+    margin-top: 8px;
+}
 }
 
 /* FAQ Section Styles */
 .faq-section {
   position: relative;
-  padding: 80px 20px;
+  padding: 200px 20px 120px;
   background: #000; /* dark background like your site */
   color: #fff;
   text-align: center;
 }
 
 .faq-heading {
-  font-size: 6rem;
   opacity: 0.05;
   position: absolute;
   top: 50%;

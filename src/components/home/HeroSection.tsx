@@ -18,11 +18,11 @@ export default function HeroSection() {
 
       {/* Hero Copy */}
       <div className="z-40 max-w-[900px] text-center flex flex-col items-center" style={{ gap: '15px' }}>
-        <h1 className="font-black uppercase" style={{ fontSize: 'clamp(100px, 18vw, 250px)', letterSpacing: '-0.05em', lineHeight: 0.8, margin: 0 }}>
+        <h1 className="font-black uppercase hero-text" style={{ fontSize: 'clamp(100px, 18vw, 250px)', letterSpacing: '-0.05em', lineHeight: 0.8, margin: 0, color: 'white' }}>
           AALIYAH<br />ILLUSIONS
         </h1>
-        <p className="tagline" style={{ fontSize: '20px', margin: 0 }}>
-          Where every image tells a story
+        <p className="tagline iceland-font" style={{ fontSize: '20px', margin: 0 }}>
+          WHERE EVERY IMAGE TELLS A STORY
         </p>
       </div>
 
@@ -69,6 +69,23 @@ export default function HeroSection() {
 
         .animate-scroll-infinite {
           animation: scroll-infinite 40s linear infinite;
+        }
+
+        @keyframes pulse-shadow {
+          0%, 100% {
+            text-shadow: 0 0 20px #29CEF2;
+          }
+          50% {
+            text-shadow: 0 0 40px #29CEF2, 0 0 80px #29CEF2, 0 0 120px #29CEF2;
+          }
+        }
+
+        .hero-text {
+          transition: text-shadow 0.3s ease;
+        }
+
+        .hero-text:hover {
+          animation: pulse-shadow 2s linear infinite;
         }
 
         @media (prefers-reduced-motion: reduce) {

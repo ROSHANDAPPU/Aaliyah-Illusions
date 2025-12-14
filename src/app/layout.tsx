@@ -16,7 +16,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={cinzel.className}>{children}</body>
+      <body className={cinzel.className}>
+        {children}
+      </body>
     </html>
   );
 }

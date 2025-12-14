@@ -6,15 +6,17 @@ export default function ServicesSection() {
   const services = [
     {
       icon: Camera,
-      title: "PHOTO",
+      title: "PHOTOGRAPHY",
       description: "Professional photography services for all occasions",
-      image: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=800",
+      image: "/Photo service.jpeg",
+      mediaType: "image",
     },
     {
       icon: Video,
-      title: "VIDEO",
+      title: "VIDEOGRAPHY",
       description: "Cinematic video production and storytelling",
-      image: "https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?q=80&w=800",
+      image: "/video service.mp4",
+      mediaType: "video",
     },
     {
       icon: Printer,

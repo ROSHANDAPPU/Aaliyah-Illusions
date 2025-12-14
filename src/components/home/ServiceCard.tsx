@@ -9,7 +9,7 @@ interface ServiceCardProps {
     image: string;
 }
 
-export default function ServiceCard({ icon: Icon, title, description, image }: ServiceCardProps) {
+export default function ServiceCard({ icon: Icon, title, description, image, mediaType }: ServiceCardProps) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -41,7 +41,7 @@ export default function ServiceCard({ icon: Icon, title, description, image }: S
           <Icon className="w-14 h-14 text-[#29CEF2] mb-6 transition-transform duration-500" 
                 style={{ transform: isHovered ? 'scale(1.1)' : 'scale(1)' }} />
           
-          <h3 className="text-4xl font-black uppercase tracking-tight mb-3 leading-none">
+          <h3 className="text-4xl font-black uppercase tracking-tight mb-3 leading-none transition-colors duration-500 iceland-font">
             {title}
           </h3>
           

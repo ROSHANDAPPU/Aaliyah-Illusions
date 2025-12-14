@@ -33,8 +33,6 @@ export default function FAQSection() {
 
   return (
     <section className="faq-section">
-      <h1 className="faq-heading">FAQS</h1>
-
       <div className="faq-cards">
         {faqs.map((faq, index) => (
           <div
@@ -46,12 +44,13 @@ export default function FAQSection() {
               <div className="faq-card-front">
                 {faq.question}
               </div>
-              <div className="faq-card-back">
+              <div className="faq-card-back iceland-font">
                 {faq.answer}
               </div>
             </div>
           </div>
         ))}
+        <h1 className="faq-heading faq-background-text">FAQS</h1>
       </div>
     </section>
   );

@@ -6,6 +6,7 @@ import WhyChooseSection from "../components/home/WhyChooseSection";
 import TestimonialsSection from "../components/home/TestimonialsSection";
 import FAQSection from "../components/home/FAQSection";
 import AboutSection from "../components/home/AboutSection";
+import CTABanner from "../components/home/CTABanner";
 import Navigation from "../components/home/Navigation";
 import Footer from "../components/home/Footer";
 
@@ -29,6 +30,7 @@ export default function Home() {
       <TestimonialsSection />
       <FAQSection />
       <AboutSection />
+      <CTABanner />
       <Footer />
     </div>
   );
