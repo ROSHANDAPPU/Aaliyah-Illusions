@@ -1,5 +1,4 @@
 "use client";
-import { useEffect } from "react";
 import Navigation from "../../components/home/Navigation";
 import Footer from "../../components/home/Footer";
 
@@ -43,50 +42,6 @@ const services = [
 ];
 
 export default function Services() {
-  useEffect(() => {
-    // Load GSAP scripts
-    const gsapScript = document.createElement('script');
-    gsapScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js';
-    gsapScript.onload = () => {
-      const scrollTriggerScript = document.createElement('script');
-      scrollTriggerScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js';
-      scrollTriggerScript.onload = initGSAP;
-      document.head.appendChild(scrollTriggerScript);
-    };
-    document.head.appendChild(gsapScript);
-
-    function initGSAP() {
-      // @ts-ignore
-      gsap.registerPlugin(window.ScrollTrigger);
-
-      // @ts-ignore
-      const cards = gsap.utils.toArray(".service-card");
-
-      // @ts-ignore
-      let tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: ".services-pin-container",
-          start: "top top",
-          end: "+=200%",
-          pin: true,
-          scrub: 1,
-          anticipatePin: 1
-        }
-      });
-
-      cards.forEach((card: any, i: number) => {
-        if (i === 0) return;
-
-        tl.from(card, {
-          yPercent: 100,
-          opacity: 0,
-          scale: 0.9,
-          duration: 1,
-          ease: "power2.out"
-        });
-      });
-    }
-  }, []);
 
   return (
     <div style={{ backgroundColor: '#000', color: '#fff', fontFamily: 'Proza Libre, sans-serif', margin: 0, overflowX: 'hidden' }}>
