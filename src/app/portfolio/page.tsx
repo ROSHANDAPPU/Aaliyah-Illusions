@@ -114,7 +114,7 @@ export default function Portfolio() {
                     </span>
                     <h3 className="listing-title text-2xl font-serif font-bold text-white mb-3">{item.title}</h3>
                     <p className="listing-desc text-gray-300 text-sm leading-relaxed mb-4">{item.description}</p>
-                    <a href="#" className="view-link text-[10px] font-light tracking-[0.2em] uppercase text-white/80 hover:text-white transition-colors border-b border-white/20 hover:border-white pb-1">
+                    <a href={item.title === "Elegant Wedding Ceremony" ? "/portfolio/elegant-wedding-ceremony" : item.title === "Corporate Event Highlights" ? "/portfolio/corporate-event-highlights" : "#"} className="view-link text-[10px] font-light tracking-[0.2em] uppercase text-white/80 hover:text-white transition-colors border-b border-white/20 hover:border-white pb-1">
                       VIEW PROJECT
                     </a>
                   </div>

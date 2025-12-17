@@ -11,7 +11,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="footer_footer" style={{ background: 'linear-gradient(to bottom, #000 0%, #29CEF2 100%)', borderTop: 'none', marginTop: '0' }}>
+    <footer className="footer_footer" style={{ background: '#000', borderTop: 'none', marginTop: '0' }}>
       <picture className="footer_bg">
         {/* Background image or gradient can be added here */}
       </picture>
@@ -26,7 +26,7 @@ export default function Footer() {
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white font-medium text-base hover:text-[#29CEF2] transition-colors relative group"
+                  className="text-[10px] font-light tracking-[0.2em] uppercase text-white hover:text-[#29CEF2] transition-colors relative group"
                 >
                   {link.name}
                   <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-white group-hover:w-full transition-all duration-300" />
@@ -46,7 +46,7 @@ export default function Footer() {
         </div>
 
         <div className="footer_middle">
-          <AnimatedBrandText text="Aaliyah Illusions" className="text-6xl md:text-8xl lg:text-9xl text-center" />
+          <AnimatedBrandText text="Aaliyah Illusions" className="text-6xl md:text-8xl lg:text-9xl text-center font-black uppercase" style={{ fontFamily: 'Metal Mania, cursive', letterSpacing: '-0.05em', lineHeight: 0.8 }} />
         </div>
 
         <div className="footer_bottom flex">

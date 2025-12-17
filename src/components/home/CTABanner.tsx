@@ -4,7 +4,7 @@ export default function CTABanner() {
   return (
     <section className="py-16 bg-black text-white">
       <div className="container mx-auto px-4 text-center">
-        <h2 className="text-4xl md:text-5xl font-bold mb-4">
+        <h2 className="text-[108px] md:text-[144px] font-bold mb-4 text-white hover:text-[#29CEF2] transition-colors">
           Ready to Bring Your Vision to Life?
         </h2>
         <p className="text-xl md:text-2xl mb-8 opacity-90 iceland-font">

@@ -16,35 +16,35 @@ const ScrollTestimonials: React.FC = () => {
   const testimonials: Testimonial[] = [
     {
       id: 1,
-      text: "Working with this team has been an absolute game-changer for our business. Their attention to detail and commitment to excellence is unmatched. They delivered beyond our expectations every single time.",
-      authorName: "Sarah Johnson",
-      authorTitle: "CEO, TechVision Inc.",
+      text: "Aaliyah Illusions brought an amazing energy to our space. Our guests loved the experience, and the branded photos added real value to our customer engagement. Their team was professional, seamless, and respectful of our environment. It elevated our brand presence without disrupting operations.",
+      authorName: "MILA UPTOWN",
+      authorTitle: "Dallas",
       authorImage: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop",
-      backgroundImage: "https://images.unsplash.com/photo-1557683316-973673baf926?w=1920&h=1080&fit=crop"
+      backgroundImage: "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F741415989%2F195845259104%2F1%2Foriginal.20240411-165920?h=740&w=1200&auto=format%2Ccompress&q=75&sharp=10&s=3ec7e98f4b0444db8c9a62efe47f368f"
     },
     {
       id: 2,
-      text: "The level of professionalism and expertise demonstrated throughout our project was exceptional. They took the time to understand our vision and brought it to life in ways we hadn't even imagined possible.",
-      authorName: "Michael Chen",
-      authorTitle: "Founder, Digital Innovations",
+      text: "The photography experience created unforgettable moments for our guests. People stayed longer, interacted more, and left with smiles. Aaliyah Illusions understands nightlife branding. The photos, branding, and overall execution aligned perfectly with our atmosphere.",
+      authorName: "RODEO UPTOWN DALLAS",
+      authorTitle: "Deep Ellum",
       authorImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
-      backgroundImage: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&h=1080&fit=crop"
+      backgroundImage: "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F741415989%2F195845259104%2F1%2Foriginal.20240411-165920?h=740&w=1200&auto=format%2Ccompress&q=75&sharp=10&s=3ec7e98f4b0444db8c9a62efe47f368f"
     },
     {
       id: 3,
-      text: "I've worked with many agencies over the years, but none have matched the creativity and dedication of this team. They're not just service providers – they're true partners in success.",
-      authorName: "Emily Rodriguez",
-      authorTitle: "Marketing Director, Bright Future Co.",
+      text: "This service adds something unique that most restaurants do not offer. Guests appreciate the extra touch, and it strengthens brand recall. The monthly media content we received was clean, high quality, and perfect for social media and promotions.",
+      authorName: "Restaurant Management Team",
+      authorTitle: "Feedback",
       authorImage: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop",
-      backgroundImage: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1920&h=1080&fit=crop"
+      backgroundImage: "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F741415989%2F195845259104%2F1%2Foriginal.20240411-165920?h=740&w=1200&auto=format%2Ccompress&q=75&sharp=10&s=3ec7e98f4b0444db8c9a62efe47f368f"
     },
     {
       id: 4,
-      text: "From start to finish, the experience was seamless. Their innovative approach and problem-solving skills helped us overcome challenges we thought were impossible. Highly recommend to anyone looking for quality.",
-      authorName: "David Anderson",
-      authorTitle: "VP of Operations, Global Solutions",
+      text: "Getting a framed photo at the restaurant made the night feel special. It is something we actually keep, not just another phone picture. It felt premium, fun, and personal. Definitely something we would love to see at more places.",
+      authorName: "Guest Experience",
+      authorTitle: "Testimonial",
       authorImage: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop",
-      backgroundImage: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop"
+      backgroundImage: "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F741415989%2F195845259104%2F1%2Foriginal.20240411-165920?h=740&w=1200&auto=format%2Ccompress&q=75&sharp=10&s=3ec7e98f4b0444db8c9a62efe47f368f"
     }
   ];
 
@@ -108,16 +108,18 @@ const ScrollTestimonials: React.FC = () => {
           flex: 0 0 auto;
           width: 100%;
           height: 100vh;
-          background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
           display: flex;
           align-items: center;
           justify-content: center;
           position: relative;
           color: white;
+          background-size: 100% 100%;
+          background-position: center;
+          background-repeat: no-repeat;
         }
 
         .testimonial-card.heading-card {
-          background: linear-gradient(180deg, #2e5b63, #23304a);
+          background: #29CEF2;
           color: white;
           text-align: center;
           justify-content: center;
@@ -130,10 +132,7 @@ const ScrollTestimonials: React.FC = () => {
         }
 
         .testimonial-content {
-          background: rgba(255, 255, 255, 0.95);
           padding: 3rem;
-          border-radius: 20px;
-          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
           width: 50%;
           display: flex;
           align-items: center;
@@ -156,8 +155,14 @@ const ScrollTestimonials: React.FC = () => {
           font-family: 'Proza Libre', sans-serif;
           font-size: 1.1rem;
           line-height: 1.8;
-          color: #ccc;
+          color: #fff;
           margin-bottom: 1.5rem;
+          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .iceland-font {
+          font-family: 'Iceland', cursive;
+          font-size: 16.5rem;
         }
 
         .author-name {
@@ -273,16 +278,9 @@ const ScrollTestimonials: React.FC = () => {
               <div className="testimonial-content">
                 <div className="testimonial-text">
                   <div className="quote-mark">"</div>
-                  <p>{testimonial.text}</p>
+                  <p className={testimonial.id === 2 ? 'iceland-font' : ''}>{testimonial.text}</p>
                   <div className="author-name">{testimonial.authorName}</div>
                   <div className="author-title">{testimonial.authorTitle}</div>
-                </div>
-                <div className="testimonial-image-container">
-                  <img
-                    src={testimonial.authorImage}
-                    alt={testimonial.authorName}
-                    className="testimonial-image"
-                  />
                 </div>
               </div>
             </article>

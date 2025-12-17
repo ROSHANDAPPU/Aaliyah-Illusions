@@ -1,11 +1,14 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ArrowLeft } from "lucide-react";
 
 export default function Navigation({ isScrolled }: { isScrolled: boolean }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [logoSrc, setLogoSrc] = useState("/LOGO MAIN.JPG");
+  const pathname = usePathname();
+  const isPortfolioSubpage = pathname.startsWith('/portfolio/') && pathname !== '/portfolio';
 
   useEffect(() => {
     setLogoSrc(isScrolled ? "/LOGO1.png" : "/LOGO MAIN.JPG");
@@ -29,77 +32,114 @@ export default function Navigation({ isScrolled }: { isScrolled: boolean }) {
         <div className="flex justify-between items-center h-24">
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex flex-1 items-center">
-            {/* Left Menu Items */}
-            <div className="flex items-center gap-12">
-              <a
-                href="/services"
-                className="text-[10px] font-light tracking-[0.2em] uppercase text-white/80 hover:text-[#29CEF2] transition-colors relative group"
+          {isPortfolioSubpage ? (
+            <div className="hidden md:flex flex-1 items-center">
+              {/* Back Button */}
+              <button
+                onClick={() => window.history.back()}
+                className="text-white hover:text-[#29CEF2] transition-colors"
               >
-                SERVICES
-                <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#29CEF2] transition-all duration-300 group-hover:w-full" />
-              </a>
-              <a
-                href="/portfolio"
-                className="text-[10px] font-light tracking-[0.2em] uppercase text-white/80 hover:text-[#29CEF2] transition-colors relative group"
-              >
-                PORTFOLIO
-                <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#29CEF2] transition-all duration-300 group-hover:w-full" />
-              </a>
-               <a
-                href="/gallery"
-                className="text-[10px] font-light tracking-[0.2em] uppercase text-white/80 hover:text-[#29CEF2] transition-colors relative group"
-              >
-                GALLERY
-                <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#29CEF2] transition-all duration-300 group-hover:w-full" />
-              </a>
+                <ArrowLeft className="w-6 h-6" />
+              </button>
 
+              {/* Centered Logo */}
+              <div className="flex-1 flex justify-center">
+                <a href="/">
+                  <img src={logoSrc} alt="Aaliyah Illusions Logo" className="h-8 w-auto" />
+                </a>
+              </div>
+
+              {/* Spacer for balance */}
+              <div className="w-6"></div>
             </div>
+          ) : (
+            <div className="hidden md:flex flex-1 items-center">
+              {/* Left Menu Items */}
+              <div className="flex items-center gap-12">
+                <a
+                  href="/services"
+                  className="text-[10px] font-light tracking-[0.2em] uppercase text-white/80 hover:text-[#29CEF2] transition-colors relative group"
+                >
+                  SERVICES
+                  <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#29CEF2] transition-all duration-300 group-hover:w-full" />
+                </a>
+                <a
+                  href="/portfolio"
+                  className="text-[10px] font-light tracking-[0.2em] uppercase text-white/80 hover:text-[#29CEF2] transition-colors relative group"
+                >
+                  PORTFOLIO
+                  <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#29CEF2] transition-all duration-300 group-hover:w-full" />
+                </a>
+                 <a
+                  href="/gallery"
+                  className="text-[10px] font-light tracking-[0.2em] uppercase text-white/80 hover:text-[#29CEF2] transition-colors relative group"
+                >
+                  GALLERY
+                  <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#29CEF2] transition-all duration-300 group-hover:w-full" />
+                </a>
 
-            {/* Centered Logo */}
-            <div className="flex-1 flex justify-center">
+              </div>
+
+              {/* Centered Logo */}
+              <div className="flex-1 flex justify-center">
+                <a href="/">
+                  <img src={logoSrc} alt="Aaliyah Illusions Logo" className="h-8 w-auto" />
+                </a>
+              </div>
+
+              {/* Right Menu Items */}
+              <div className="flex items-center gap-12">
+                <a
+                  href="/about"
+                  className="text-[10px] font-light tracking-[0.2em] uppercase text-white/80 hover:text-[#29CEF2] transition-colors relative group"
+                >
+                  ABOUT
+                  <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#29CEF2] transition-all duration-300 group-hover:w-full" />
+                </a>
+                <a
+                  href="/contact"
+                  className="text-[10px] font-light tracking-[0.2em] uppercase text-white/80 hover:text-[#29CEF2] transition-colors relative group"
+                >
+                  CONTACT
+                  <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#29CEF2] transition-all duration-300 group-hover:w-full" />
+                </a>
+                <a
+                  href="/login"
+                  className="text-[10px] font-light tracking-[0.2em] uppercase text-white/80 hover:text-[#29CEF2] transition-colors border border-white/20 px-6 py-2 hover:border-[#29CEF2]"
+                >
+                  LOGIN
+                </a>
+              </div>
+            </div>
+          )}
+
+          {/* Mobile Menu Button and Logo */}
+          {isPortfolioSubpage ? (
+            <div className="md:hidden flex justify-between items-center w-full">
+              <button
+                onClick={() => window.history.back()}
+                className="text-white hover:text-[#29CEF2] transition-colors"
+              >
+                <ArrowLeft className="w-6 h-6" />
+              </button>
               <a href="/">
                 <img src={logoSrc} alt="Aaliyah Illusions Logo" className="h-8 w-auto" />
               </a>
+              <div className="w-6"></div>
             </div>
-
-            {/* Right Menu Items */}
-            <div className="flex items-center gap-12">
-              <a
-                href="/about"
-                className="text-[10px] font-light tracking-[0.2em] uppercase text-white/80 hover:text-[#29CEF2] transition-colors relative group"
-              >
-                ABOUT
-                <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#29CEF2] transition-all duration-300 group-hover:w-full" />
+          ) : (
+            <div className="md:hidden flex justify-between items-center w-full">
+              <a href="/">
+                <img src={logoSrc} alt="Aaliyah Illusions Logo" className="h-8 w-auto" />
               </a>
-              <a
-                href="/contact"
-                className="text-[10px] font-light tracking-[0.2em] uppercase text-white/80 hover:text-[#29CEF2] transition-colors relative group"
+              <button
+                className="text-white"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               >
-                CONTACT
-                <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#29CEF2] transition-all duration-300 group-hover:w-full" />
-              </a>
-              <a
-                href="/login"
-                className="text-[10px] font-light tracking-[0.2em] uppercase text-white/80 hover:text-[#29CEF2] transition-colors border border-white/20 px-6 py-2 hover:border-[#29CEF2]"
-              >
-                LOGIN
-              </a>
+                {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
             </div>
-          </div>
-
-          {/* Mobile Menu Button and Logo */}
-          <div className="md:hidden flex justify-between items-center w-full">
-            <a href="/">
-              <img src={logoSrc} alt="Aaliyah Illusions Logo" className="h-8 w-auto" />
-            </a>
-            <button
-              className="text-white"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-          </div>
+          )}
         </div>
 
         {/* Mobile Menu */}

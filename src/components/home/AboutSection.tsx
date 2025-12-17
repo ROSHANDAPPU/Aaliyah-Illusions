@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 
 export default function AboutSection() {
   return (
-    <section id="about" className="relative py-40 px-6 lg:px-8 bg-[#050505] overflow-hidden">
+    <section id="about" className="relative pt-40 pb-0 px-6 lg:px-8 bg-[#050505] overflow-hidden">
       {/* Background Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-[#29CEF2]/5 rounded-full blur-[200px] pointer-events-none" />
 

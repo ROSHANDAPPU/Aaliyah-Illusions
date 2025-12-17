@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
-  basePath: '/Aaliyah-Illusions',
-  assetPrefix: '/Aaliyah-Illusions/',
+  basePath: process.env.NODE_ENV === 'production' ? '/Aaliyah-Illusions' : '',
+  assetPrefix: process.env.NODE_ENV === 'production' ? '/Aaliyah-Illusions/' : '',
   trailingSlash: true,
   images: {
     unoptimized: true,

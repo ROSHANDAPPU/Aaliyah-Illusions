@@ -5,40 +5,35 @@ import Footer from "../../components/home/Footer";
 const services = [
   {
     title: "Onsite Printing",
-    image: "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=500&h=400&fit=crop",
+    image: "https://dpceventservices.com/wp-content/uploads/2021/03/DPC-Event-Services_Entertainment_On-Site-Photography-and-Printing-01.jpg",
     description: "Instant keepsakes: Our onsite printing services offer guests the opportunity to take home memorable photographs and mementos of their visit, creating lasting connections with your brand.",
     link: "/portfolio/on-site-printing",
   },
   {
     title: "Photo",
-    image: "https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=500&h=400&fit=crop",
+    image: "https://lifestylesafter50.com/wp-content/uploads/sites/3/2025/07/photos-7666143_1280.jpg",
     description: "Our food photography service captures the essence of your dishes, making them look as delectable as they taste.",
     link: "/portfolio/photo",
   },
   {
     title: "Videography",
-    image: "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=500&h=400&fit=crop",
+    image: "https://ftp.nfi.edu/wp-content/uploads/2021/10/Videography-vs-Cinematography.png",
     description: "Turning moments into memories. Our videography service captures the heart and soul of your special occasions, creating lasting memories.",
     link: "/portfolio/videography",
   },
   {
     title: "Photobooth",
-    image: "https://images.unsplash.com/photo-1519741497674-611481863552?w=500&h=400&fit=crop",
+    image: "https://madhatphotobooth.com/wp-content/uploads/2019/12/cripps-barn-photo-booth-setup-1-1024x768.jpg",
     description: "Snapshot memories: Our photobooths add a touch of fun to your events and gatherings. Let your guests capture spontaneous moments and share them instantly.",
     link: "/portfolio/photobooth",
   },
   {
     title: "SMM",
-    image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=500&h=400&fit=crop",
+    image: "https://media.geeksforgeeks.org/wp-content/uploads/20231117175150/marketing-landing-page.webp",
     description: "We manage your social media presence, creating engaging content and interacting with your audience to boost your online visibility and reputation.",
     link: "/portfolio/smm",
   },
-  {
-    title: "Souvenir Printing",
-    image: "https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=500&h=400&fit=crop",
-    description: "Our skilled team brings the art of souvenir printing to your doorstep, ensuring that your special occasions are etched in time with precision and creativity.",
-    link: "/portfolio/souvenir-printing",
-  },
+
 ];
 
 export default function Services() {
@@ -65,7 +60,7 @@ export default function Services() {
             >
               <div className="service-content">
                 <h3 className="service-title">{service.title}</h3>
-                <p className="service-description">{service.description}</p>
+                <p className={`service-description ${service.title === "Onsite Printing" || service.title === "Photo" || service.title === "Videography" || service.title === "Photobooth" || service.title === "SMM" ? 'iceland-font' : ''}`}>{service.description}</p>
                 <a href={service.link} className="service-link">
                   VIEW PORTFOLIO
                 </a>
@@ -141,14 +136,20 @@ export default function Services() {
           text-align: center;
           max-width: 600px;
           padding: 0 20px;
+          height: 100vh;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
         }
 
         .service-title {
           font-family: 'Cormorant Garamond', serif;
-          font-size: 3rem;
+          font-size: 6rem;
           font-weight: 400;
           margin-bottom: 1rem;
           letter-spacing: -0.5px;
+          white-space: nowrap;
         }
 
         .service-description {
@@ -189,7 +190,7 @@ export default function Services() {
 
         .cta-section h1 {
           font-family: 'Iceland', sans-serif;
-          font-size: 3rem;
+          font-size: 9rem;
           margin-bottom: 2rem;
           color: #fff;
         }
