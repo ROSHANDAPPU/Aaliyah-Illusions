@@ -1,8 +1,11 @@
 "use client";
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { Playfair_Display } from "next/font/google";
 import Navigation from "../../../components/home/Navigation";
 import Footer from "../../../components/home/Footer";
+
+const playfair = Playfair_Display({ subsets: ["latin"], weight: ["400", "700", "900"] });
 
 const images = [
   "/corporate/pexels-a-darmel-8134103.jpg",
@@ -54,7 +57,8 @@ export default function CorporateEventHighlights() {
             </video>
             <div className="absolute inset-0 bg-black/50"></div>
             <div className="relative z-10 flex flex-col justify-center items-center">
-              <h1 className="text-6xl md:text-8xl font-black uppercase text-white mb-8">
+              <h1 className={`${playfair.className} text-6xl md:text-8xl font-black uppercase text-white mb-8`}
+                style={{ textShadow: '0 0 12px rgba(41,206,242,0.45), 0 0 35px rgba(41,206,242,0.2)' }}>
                 VIDEOGRAPHY
               </h1>
               <p className="text-xl text-gray-300 mb-8 iceland-font text-center">
@@ -75,7 +79,8 @@ export default function CorporateEventHighlights() {
               className="object-cover"
             />
             <div className="absolute inset-0 flex flex-col justify-center items-center bg-black/50">
-              <h1 className="text-6xl md:text-8xl font-black uppercase text-white mb-8">
+              <h1 className={`${playfair.className} text-6xl md:text-8xl font-black uppercase text-white mb-8`}
+                style={{ textShadow: '0 0 12px rgba(41,206,242,0.45), 0 0 35px rgba(41,206,242,0.2)' }}>
                 PHOTOGRAPHY
               </h1>
               <p className="text-xl text-gray-300 mb-8 iceland-font text-center">
@@ -88,6 +93,7 @@ export default function CorporateEventHighlights() {
           </div>
         </section>
       </main>
+      <Footer />
     </div>
   );
 }

@@ -21,7 +21,7 @@ export default function AboutSection() {
           </h2>
           <h2 className="font-black uppercase leading-[0.9] tracking-tight animate-text-reveal-delay"
               style={{ fontSize: 'clamp(32px, 5vw, 72px)' }}>
-            YOUR BUSINESS THROUGH
+            YOUR <span className="text-[#29CEF2]">BUSINESS</span> THROUGH
           </h2>
           <h2 className="font-black uppercase leading-[0.9] tracking-tight animate-text-reveal-delay-2"
               style={{ fontSize: 'clamp(32px, 5vw, 72px)' }}>
@@ -39,20 +39,6 @@ export default function AboutSection() {
           READ MORE
         </button>
 
-        {/* Scrolling Text Loop */}
-        <div className="mt-32 overflow-hidden">
-          <div className="flex whitespace-nowrap animate-scroll-loop-slow font-black uppercase tracking-tighter text-gray-900/10"
-               style={{ fontSize: 'clamp(48px, 10vw, 120px)' }}>
-            <span className="mx-12">Aaliyah Illusions</span>
-            <span className="mx-12">•</span>
-            <span className="mx-12">PHOTOGRAPHY</span>
-            <span className="mx-12">•</span>
-            <span className="mx-12">Aaliyah Illusions</span>
-            <span className="mx-12">•</span>
-            <span className="mx-12">PHOTOGRAPHY</span>
-            <span className="mx-12">•</span>
-          </div>
-        </div>
       </div>
 
       <style jsx>{`

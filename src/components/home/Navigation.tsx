@@ -104,10 +104,10 @@ export default function Navigation({ isScrolled }: { isScrolled: boolean }) {
                   <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#29CEF2] transition-all duration-300 group-hover:w-full" />
                 </a>
                 <a
-                  href="/login"
+                  href="/contact"
                   className="text-[10px] font-light tracking-[0.2em] uppercase text-white/80 hover:text-[#29CEF2] transition-colors border border-white/20 px-6 py-2 hover:border-[#29CEF2]"
                 >
-                  LOGIN
+                  BOOK NOW
                 </a>
               </div>
             </div>
@@ -156,10 +156,10 @@ export default function Navigation({ isScrolled }: { isScrolled: boolean }) {
               </a>
             ))}
             <a
-              href="/login"
+              href="/contact"
               className="block text-sm font-light tracking-[0.2em] uppercase text-center border border-white/20 px-6 py-3 hover:border-[#29CEF2] hover:text-[#29CEF2] transition-colors"
             >
-              LOGIN
+              BOOK NOW
             </a>
           </div>
         )}

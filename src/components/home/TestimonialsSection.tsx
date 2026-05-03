@@ -1,294 +1,207 @@
-import React, { useState, useEffect, useRef } from 'react';
+"use client";
+import React, { useRef, useEffect, useState } from 'react';
+import Image from 'next/image';
+import { Iceland, Inter, Playfair_Display } from "next/font/google";
+
+const playfair = Playfair_Display({ subsets: ["latin"], weight: ["400", "700", "900"], style: ['normal'] });
+const iceland = Iceland({ subsets: ["latin"], weight: ["400"] });
+const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "600", "800", "900"] });
 
 interface Testimonial {
-  id: number;
+  id: string;
+  title: string;
+  name: string;
+  position: string;
+  imageSrc: string;
   text: string;
-  authorName: string;
-  authorTitle: string;
-  authorImage: string;
-  backgroundImage: string;
 }
 
-const ScrollTestimonials: React.FC = () => {
-  const [activeIndex, setActiveIndex] = useState<number>(0);
-  const triggerRefs = useRef<(HTMLElement | null)[]>([]);
+const testimonials: Testimonial[] = [
+  { 
+    id: 'MILA-1', 
+    title: 'MILA', 
+    name: 'Michael Chen',
+    position: 'General Manager',
+    imageSrc: '/mila_lounge.png', 
+    text: '"Aaliyah Illusions brought an amazing energy to our space. Our guests loved the experience, and branded photos added real value."' 
+  },
+  { 
+    id: 'MILA-2', 
+    title: 'MILA', 
+    name: 'Sarah Jenkins',
+    position: 'Event Coordinator',
+    imageSrc: '/mila_lounge.png', 
+    text: '"The photography experience created unforgettable moments. People stayed longer, interacted more, and left with smiles."' 
+  },
+  { 
+    id: 'TROPHY-1', 
+    title: 'TROPHY', 
+    name: 'David Rossi',
+    position: 'Managing Partner',
+    imageSrc: '/trophy_club.png', 
+    text: '"This service adds something unique. Guests appreciate the extra touch, and it strengthens our brand recall significantly."' 
+  },
+  { 
+    id: 'TROPHY-2', 
+    title: 'TROPHY', 
+    name: 'Jessica Thorne',
+    position: 'VIP Host Manager',
+    imageSrc: '/trophy_club.png', 
+    text: '"Getting a framed high-quality photo made the night feel special. It\'s something we actually keep, not just another phone picture."' 
+  },
+  { 
+    id: 'CACTUS-1', 
+    title: 'CACTUS', 
+    name: 'Marcus Bell',
+    position: 'Operations Director',
+    imageSrc: '/cactus_lounge.png', 
+    text: '"Their team was professional, seamless, and respectful. The quality of the dramatic imagery is absolutely unmatched."' 
+  },
+  { 
+    id: 'CACTUS-2', 
+    title: 'CACTUS', 
+    name: 'Elena Rodriguez',
+    position: 'Marketing Director',
+    imageSrc: '/cactus_lounge.png', 
+    text: '"Aaliyah Illusions perfectly captured the vibrant energy of our lounge. A truly premium service that our guests rave about."' 
+  },
+];
 
-  const testimonials: Testimonial[] = [
-    {
-      id: 1,
-      text: "Aaliyah Illusions brought an amazing energy to our space. Our guests loved the experience, and the branded photos added real value to our customer engagement. Their team was professional, seamless, and respectful of our environment. It elevated our brand presence without disrupting operations.",
-      authorName: "MILA UPTOWN",
-      authorTitle: "Dallas",
-      authorImage: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop",
-      backgroundImage: "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F741415989%2F195845259104%2F1%2Foriginal.20240411-165920?h=740&w=1200&auto=format%2Ccompress&q=75&sharp=10&s=3ec7e98f4b0444db8c9a62efe47f368f"
-    },
-    {
-      id: 2,
-      text: "The photography experience created unforgettable moments for our guests. People stayed longer, interacted more, and left with smiles. Aaliyah Illusions understands nightlife branding. The photos, branding, and overall execution aligned perfectly with our atmosphere.",
-      authorName: "RODEO UPTOWN DALLAS",
-      authorTitle: "Deep Ellum",
-      authorImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
-      backgroundImage: "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F741415989%2F195845259104%2F1%2Foriginal.20240411-165920?h=740&w=1200&auto=format%2Ccompress&q=75&sharp=10&s=3ec7e98f4b0444db8c9a62efe47f368f"
-    },
-    {
-      id: 3,
-      text: "This service adds something unique that most restaurants do not offer. Guests appreciate the extra touch, and it strengthens brand recall. The monthly media content we received was clean, high quality, and perfect for social media and promotions.",
-      authorName: "Restaurant Management Team",
-      authorTitle: "Feedback",
-      authorImage: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop",
-      backgroundImage: "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F741415989%2F195845259104%2F1%2Foriginal.20240411-165920?h=740&w=1200&auto=format%2Ccompress&q=75&sharp=10&s=3ec7e98f4b0444db8c9a62efe47f368f"
-    },
-    {
-      id: 4,
-      text: "Getting a framed photo at the restaurant made the night feel special. It is something we actually keep, not just another phone picture. It felt premium, fun, and personal. Definitely something we would love to see at more places.",
-      authorName: "Guest Experience",
-      authorTitle: "Testimonial",
-      authorImage: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop",
-      backgroundImage: "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F741415989%2F195845259104%2F1%2Foriginal.20240411-165920?h=740&w=1200&auto=format%2Ccompress&q=75&sharp=10&s=3ec7e98f4b0444db8c9a62efe47f368f"
-    }
-  ];
+export default function TestimonialsSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  const numPages = testimonials.length + 1;
+  const totalSlides = testimonials.length + 1; // Header + 6 cards
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const index = parseInt(entry.target.getAttribute('data-index') || '0', 10);
-            setActiveIndex(index);
-          }
-        });
-      },
-      {
-        root: null,
-        threshold: 0.5,
-      }
-    );
+    const handleScroll = () => {
+      if (!sectionRef.current) return;
+      const sectionTop = sectionRef.current.offsetTop;
+      const sectionHeight = sectionRef.current.offsetHeight;
+      const windowHeight = window.innerHeight;
+      const scrollY = window.scrollY;
 
-    const refs = triggerRefs.current;
-    refs.forEach((ref) => {
-      if (ref) {
-        observer.observe(ref);
-      }
-    });
+      // How far into the section we've scrolled (from when top of section hits top of viewport)
+      const scrolled = scrollY - sectionTop;
+      const scrollableDistance = sectionHeight - windowHeight;
 
-    return () => {
-      refs.forEach((ref) => {
-        if (ref) {
-          observer.unobserve(ref);
-        }
-      });
+      if (scrollableDistance <= 0) return;
+
+      let progress = scrolled / scrollableDistance;
+      progress = Math.max(0, Math.min(1, progress));
+
+      // Map continuous progress to crisp stepping points
+      const mappedIndex = Math.round(progress * (totalSlides - 1));
+      setActiveIndex(mappedIndex);
     };
-  }, []);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial calculate
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [totalSlides]);
 
   return (
-    <>
-      <style jsx>{`
-        .testimonials-section {
-          height: 100vh;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .testimonials-container {
-          height: 100vh;
-          width: 100%;
-          overflow-y: auto;
-          scroll-snap-type: y mandatory;
-          -webkit-overflow-scrolling: touch;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
-
-        .testimonial-card {
-          scroll-snap-align: start;
-          flex: 0 0 auto;
-          width: 100%;
-          height: 100vh;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          position: relative;
-          color: white;
-          background-size: 100% 100%;
-          background-position: center;
-          background-repeat: no-repeat;
-        }
-
-        .testimonial-card.heading-card {
-          background: #29CEF2;
-          color: white;
-          text-align: center;
-          justify-content: center;
-          align-items: center;
-        }
-
-        .testimonial-card.heading-card h2 {
-          font-size: 4rem;
-          font-weight: 700;
-        }
-
-        .testimonial-content {
-          padding: 3rem;
-          width: 50%;
-          display: flex;
-          align-items: center;
-          gap: 3rem;
-        }
-
-        .testimonial-text {
-          flex: 1;
-          padding-right: 2rem;
-        }
-
-        .quote-mark {
-          font-size: 4rem;
-          color: #4a90e2;
-          line-height: 0;
-          margin-bottom: 1rem;
-        }
-
-        .testimonial-text p {
-          font-family: 'Proza Libre', sans-serif;
-          font-size: 1.1rem;
-          line-height: 1.8;
-          color: #fff;
-          margin-bottom: 1.5rem;
-          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        .iceland-font {
-          font-family: 'Iceland', cursive;
-          font-size: 16.5rem;
-        }
-
-        .author-name {
-          font-family: 'Cormorant Garamond', serif;
-          font-size: 1.3rem;
-          font-weight: 400;
-          color: #fff;
-          margin-bottom: 0.3rem;
-        }
-
-        .author-title {
-          font-family: 'Proza Libre', sans-serif;
-          font-size: 0.95rem;
-          color: #999;
-        }
-
-        .testimonial-image-container {
-          flex-shrink: 0;
-        }
-
-        .testimonial-image {
-          width: 200px;
-          height: 200px;
-          border-radius: 50%;
-          object-fit: cover;
-          border: 5px solid #4a90e2;
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .scroll-indicator {
-          position: fixed;
-          bottom: 30px;
-          left: 50%;
-          transform: translateX(-50%);
-          z-index: 100;
-          text-align: center;
-          color: white;
-          font-size: 0.9rem;
-          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-          opacity: ${activeIndex === 0 ? '0' : '1'};
-          transition: opacity 0.5s ease;
-        }
-
-        .scroll-dots {
-          display: flex;
-          gap: 10px;
-          margin-top: 10px;
-          justify-content: center;
-        }
-
-        .dot {
-          width: 12px;
-          height: 12px;
-          border-radius: 50%;
-          background: rgba(255, 255, 255, 0.5);
-          transition: all 0.3s ease;
-        }
-
-        .dot.active {
-          background: white;
-          transform: scale(1.3);
-        }
-
-        @media (max-width: 1024px) {
-          .testimonial-content {
-            width: 70%;
-            flex-direction: column;
-            text-align: center;
-          }
-
-          .testimonial-text {
-            padding-right: 0;
-          }
-
-          .testimonial-image {
-            width: 150px;
-            height: 150px;
-          }
-        }
-
-        @media (max-width: 768px) {
-          .testimonial-content {
-            width: 90%;
-            padding: 2rem;
-            gap: 2rem;
-          }
-
-          .testimonial-text p {
-            font-size: 1rem;
-          }
-
-          .testimonial-image {
-            width: 120px;
-            height: 120px;
-          }
-        }
-      `}</style>
-
-      <section className="testimonials-section">
-        <div className="testimonials-container">
-          <article className="testimonial-card heading-card">
-            <h2>Testimonials</h2>
-          </article>
-
-          {testimonials.map((testimonial, index) => (
-            <article
-              key={testimonial.id}
-              className="testimonial-card"
-              style={{ backgroundImage: `url(${testimonial.backgroundImage})` }}
-              ref={(el) => { triggerRefs.current[index + 1] = el; }}
-              data-index={index + 1}
-            >
-              <div className="testimonial-content">
-                <div className="testimonial-text">
-                  <div className="quote-mark">"</div>
-                  <p className={testimonial.id === 2 ? 'iceland-font' : ''}>{testimonial.text}</p>
-                  <div className="author-name">{testimonial.authorName}</div>
-                  <div className="author-title">{testimonial.authorTitle}</div>
-                </div>
+    <section ref={sectionRef} className="bg-[#050505] relative w-full h-[700vh] z-10">
+      <div className="sticky top-0 left-0 w-full h-screen overflow-hidden bg-[#050505]">
+        
+        {/* Horizontal Track with Step Transitions */}
+        <div 
+          className="flex h-full items-center transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
+          style={{
+            width: `${totalSlides * 100}vw`,
+            transform: `translateX(-${activeIndex * 100}vw)`,
+          }}
+        >
+          {/* Slide 1: Cyrclo-style Header */}
+          <div className="w-[100vw] h-full flex flex-col items-center justify-center flex-shrink-0 px-6 lg:px-12 relative">
+            <div className={`max-w-[1400px] w-full flex flex-col items-center justify-center transition-opacity duration-700 ${activeIndex === 0 ? 'opacity-100' : 'opacity-0'}`}>
+              <p className="text-white font-sans uppercase tracking-[0.2em] text-xs md:text-sm font-medium mb-8">
+                Client Testimonials
+              </p>
+              <h2 className={`${playfair.className} text-[clamp(3rem,8vw,128px)] font-black mb-8 text-center uppercase leading-[1.1]`}>
+                <span className="text-white text-shadow-glow">GROWTH IN</span> <span className="text-[#29CEF2] text-shadow-glow-cyan">ACTION</span>
+              </h2>
+              <div className="w-full max-w-4xl mx-auto border-t border-white/10 pt-6 mt-4 flex justify-between items-center text-white/50 text-xs md:text-sm font-medium tracking-[0.1em] uppercase">
+                 <span>Proven Results©</span>
+                 <span>(2025/26)</span>
               </div>
-            </article>
-          ))}
-        </div>
-      </section>
-    </>
-  );
-};
+            </div>
+          </div>
 
-export default ScrollTestimonials;
+          {/* Rest of the Slides: Cards List */}
+          {testimonials.map((t, i) => {
+            const isSlideActive = activeIndex === i + 1;
+            
+            return (
+              <div key={`${t.id}-${i}`} className="w-[100vw] h-screen flex items-center justify-center flex-shrink-0 px-6 md:px-12 lg:px-24 py-12 relative overflow-hidden group">
+                
+                {/* Background Blurred Image Layer */}
+                <div className="absolute inset-0 z-0">
+                   <Image 
+                     src={t.imageSrc} 
+                     alt={`${t.title} background`} 
+                     fill 
+                     priority={i < 2}
+                     className={`object-cover blur-[80px] opacity-40 group-hover:opacity-60 transition-all duration-1000 ease-out ${isSlideActive ? 'scale-110' : 'scale-[1.3]'}`} 
+                   />
+                   <div className="absolute inset-0 bg-[#050505]/40" />
+                </div>
+
+                {/* Giant Cinematic Venue Watermark */}
+                <div className="absolute inset-x-0 top-[8%] lg:top-[10%] z-[5] flex items-center justify-center pointer-events-none overflow-hidden">
+                   <h3 
+                     className={`${inter.className} text-[24vw] md:text-[18vw] lg:text-[14vw] font-black uppercase tracking-[0.1em] leading-none whitespace-nowrap select-none transition-all duration-[1500ms] ease-[cubic-bezier(0.25,1,0.5,1)] ${isSlideActive ? 'scale-100 opacity-100 blur-0 translate-y-0' : 'scale-[0.85] opacity-0 blur-xl -translate-y-12'}`}
+                     style={{ 
+                       color: 'transparent', 
+                       WebkitTextStroke: '3px rgba(255, 255, 255, 0.3)',
+                     }}
+                   >
+                     {t.title}
+                   </h3>
+                </div>
+
+                {/* Inner Floating Content Layer */}
+                <div className="relative z-10 flex flex-col items-center justify-start pt-[30vh] sm:pt-[25vh] md:pt-[28vh] w-full h-[85vh] min-h-[700px] max-h-[900px] pointer-events-auto">
+
+                   {/* Sleek Dark Glass Card */}
+                   <div className={`bg-[#0a0a0a]/50 backdrop-blur-3xl border border-white/5 rounded-[40px] p-6 sm:p-8 md:p-10 w-full max-w-[1100px] shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-all duration-1000 flex flex-col md:flex-row gap-8 lg:gap-12 items-center ${isSlideActive ? 'scale-100 opacity-100 translate-y-0' : 'scale-95 opacity-50 translate-y-12'}`}>
+                       
+                       {/* Left side: Small Sharp Image */}
+                       <div className="relative w-full md:w-[45%] h-[250px] sm:h-[350px] lg:h-[400px] shrink-0 rounded-[28px] overflow-hidden shadow-[0_0_30px_rgba(0,0,0,0.8)] ring-1 ring-white/10">
+                           <Image 
+                             src={t.imageSrc} 
+                             alt={t.title} 
+                             fill 
+                             className="object-cover transition-transform duration-[2000ms] ease-out group-hover:scale-[1.08]" 
+                           />
+                       </div>
+
+                       {/* Right side: Text Content */}
+                       <div className="w-full md:w-[55%] flex flex-col">
+                           
+                           {/* Card Header (Name --- Position) */}
+                           <div className="flex items-center text-[10px] sm:text-xs text-[#29CEF2] tracking-[0.25em] font-medium mb-8 uppercase opacity-90">
+                              <span>( {t.name}</span>
+                              <div className="flex-1 mx-4 sm:mx-6 border-t border-dashed border-[#29CEF2]/30"></div>
+                              <span className="whitespace-nowrap">{t.position} )</span>
+                           </div>
+
+                           {/* Testimonial Quote */}
+                           <div className="pr-4 md:pr-8">
+                             <p className={`${iceland.className} text-white/90 text-[1.4rem] sm:text-3xl lg:text-[2.2rem] xl:text-4xl leading-[1.6] lg:leading-[1.7] text-left tracking-wide`}>
+                                 {t.text}
+                             </p>
+                           </div>
+                       </div>
+                   </div>
+
+                </div>
+
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}

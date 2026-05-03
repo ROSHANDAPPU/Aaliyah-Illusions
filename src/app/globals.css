@@ -46,12 +46,7 @@
     font-family: "Iceland", serif;
     font-weight: 900;
     text-transform: uppercase;
-    color: transparent;
-    background-image: linear-gradient(135deg, #29CEF2 0%, #3DD8FC 50%, #29CEF2 100%);
-    background-size: 300% 300%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    animation: sheen 4s ease-in-out infinite;
+    color: white;
   }
 
   @keyframes sheen {

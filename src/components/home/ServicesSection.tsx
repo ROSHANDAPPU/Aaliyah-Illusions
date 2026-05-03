@@ -27,15 +27,15 @@ export default function ServicesSection() {
   ];
 
   return (
-    <section id="services" className="relative py-40 px-6 lg:px-8 bg-[#050505]">
+    <section id="services" className="relative min-h-screen w-full flex flex-col items-center justify-center py-16 md:py-20 px-6 lg:px-8 bg-[#050505]">
       {/* Subtle glow effects */}
       <div className="absolute top-20 left-10 w-[500px] h-[500px] bg-[#29CEF2]/5 rounded-full blur-[150px] pointer-events-none" />
       <div className="absolute bottom-20 right-10 w-[500px] h-[500px] bg-[#29CEF2]/5 rounded-full blur-[150px] pointer-events-none" />
 
-      <div className="relative max-w-[1600px] mx-auto">
+      <div className="relative w-full max-w-[1600px] mx-auto">
         {/* Section Header */}
-        <div className="mb-32">
-          <div className="text-center space-y-3 mb-12">
+        <div className="mb-16 md:mb-20">
+          <div className="text-center space-y-2 md:space-y-3 mb-8 md:mb-12">
             <div className="font-light tracking-wide" style={{ fontSize: 'clamp(28px, 4vw, 56px)' }}>
               <span className="text-gray-600">Our</span>{' '}
               <span className="text-white">company provides a wide</span>

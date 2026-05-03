@@ -1,8 +1,11 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import { Playfair_Display } from "next/font/google";
 import Navigation from "../../../components/home/Navigation";
 import Footer from "../../../components/home/Footer";
+
+const playfair = Playfair_Display({ subsets: ["latin"], weight: ["400", "700", "900"] });
 
 const images = [
   "/wedding/pexels-alexander-mass-748453803-35107235.jpg",
@@ -26,6 +29,7 @@ const images = [
 
 export default function ElegantWeddingCeremony() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,18 +39,69 @@ export default function ElegantWeddingCeremony() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.play().catch(error => {
+        // Autoplay was prevented.
+        console.error("Autoplay was prevented:", error);
+      });
+    }
+  }, []);
+
   return (
     <div className="text-neutral-text-light min-h-screen overflow-hidden" style={{ backgroundColor: '#000' }}>
       <Navigation isScrolled={isScrolled} />
       <main className="text-white min-h-screen">
-        {/* Page Title */}
-        <section className="py-32 px-6 md:px-16 text-center" style={{ backgroundColor: '#000' }}>
-          <h1 className="text-4xl md:text-6xl font-black uppercase text-white" style={{ textShadow: '0 0 20px #29CEF2' }}>
-            ELEGANT WEDDING CEREMONY
-          </h1>
-          <p className="text-xl text-gray-300 mt-4 iceland-font">
-            Capturing timeless moments of love and elegance
-          </p>
+        {/* Hero Section */}
+        <section className="h-screen flex" style={{ backgroundColor: '#000' }}>
+          {/* Left Side - Videography */}
+          <div className="w-1/2 relative">
+            <video
+              ref={videoRef}
+              className="w-full h-full object-cover"
+              autoPlay
+              muted
+              loop
+              playsInline
+            >
+              <source src="/wedding-videos/wedding-cover.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <div className="absolute inset-0 flex flex-col justify-center items-center bg-black/50">
+              <h1 className={`${playfair.className} text-6xl md:text-8xl font-black uppercase text-white mb-8`}
+                style={{ textShadow: '0 0 12px rgba(41,206,242,0.45), 0 0 35px rgba(41,206,242,0.2)' }}>
+                VIDEOGRAPHY
+              </h1>
+              <p className="text-xl text-gray-300 mb-8 iceland-font text-center">
+                Capturing dynamic moments and storytelling through cinematic videography
+              </p>
+              <a href="/portfolio/elegant-wedding-videography" className="text-[10px] font-light tracking-[0.2em] uppercase text-white border border-white/20 px-6 py-2 hover:border-[#29CEF2] hover:text-[#29CEF2] transition-colors">
+                VIEW VIDEOS
+              </a>
+            </div>
+          </div>
+
+          {/* Right Side - Photography */}
+          <div className="w-1/2 relative">
+            <Image
+              src="https://dawneicherphotography.com/wp-content/uploads/2022/09/HawaiiElopement-29.jpg"
+              alt="Wedding photography"
+              fill
+              className="object-cover"
+            />
+            <div className="absolute inset-0 flex flex-col justify-center items-center bg-black/50">
+              <h1 className={`${playfair.className} text-6xl md:text-8xl font-black uppercase text-white mb-8`}
+                style={{ textShadow: '0 0 12px rgba(41,206,242,0.45), 0 0 35px rgba(41,206,242,0.2)' }}>
+                PHOTOGRAPHY
+              </h1>
+              <p className="text-xl text-gray-300 mb-8 iceland-font text-center">
+                Professional photography capturing timeless moments of love
+              </p>
+              <a href="/portfolio/elegant-wedding-photography" className="text-[10px] font-light tracking-[0.2em] uppercase text-white border border-white/20 px-6 py-2 hover:border-[#29CEF2] hover:text-[#29CEF2] transition-colors">
+                VIEW PHOTOS
+              </a>
+            </div>
+          </div>
         </section>
 
         {/* Gallery */}

@@ -1,4 +1,7 @@
 import React from "react";
+import { Playfair_Display } from "next/font/google";
+
+const playfair = Playfair_Display({ subsets: ["latin"], weight: ["400", "700", "900"], style: ['normal'] });
 
 export default function WhyChooseSection() {
   const features = [
@@ -34,7 +37,7 @@ export default function WhyChooseSection() {
              className="group relative p-12 transition-all duration-500 grid grid-cols-3 gap-8 items-start"
            >
              {/* Title */}
-             <h3 className="col-span-2 text-white font-black uppercase tracking-tight group-hover:text-[#29CEF2] transition-colors leading-[0.9] font-sans why-choose-heading">
+             <h3 className={`col-span-2 text-white font-black uppercase tracking-tight group-hover:text-[#29CEF2] transition-colors leading-[0.9] why-choose-heading ${playfair.className}`}>
                {feature.title}
              </h3>
 

@@ -22,7 +22,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="bg-background-dark text-neutral-text-light min-h-screen overflow-hidden">
+    <div className="bg-background-dark text-neutral-text-light min-h-screen">
       <Navigation isScrolled={isScrolled} />
       <HeroSection />
       <ServicesSection />

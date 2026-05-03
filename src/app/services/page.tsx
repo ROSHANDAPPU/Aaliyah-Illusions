@@ -1,235 +1,346 @@
 "use client";
+import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { Playfair_Display } from "next/font/google";
 import Navigation from "../../components/home/Navigation";
 import Footer from "../../components/home/Footer";
 
+const playfair = Playfair_Display({ subsets: ["latin"], weight: ["400", "700", "900"] });
+
 const services = [
   {
+    id: "01",
     title: "Onsite Printing",
-    image: "https://dpceventservices.com/wp-content/uploads/2021/03/DPC-Event-Services_Entertainment_On-Site-Photography-and-Printing-01.jpg",
+    tagline: "Instant Keepsakes",
+    image: "https://images.unsplash.com/photo-1559030624-a4625b3a6289?w=1400&q=90&fit=crop",
     description: "Instant keepsakes: Our onsite printing services offer guests the opportunity to take home memorable photographs and mementos of their visit, creating lasting connections with your brand.",
-    link: "/portfolio/on-site-printing",
+    link: "/on-site-printing",
+    ticker: "PHOTO BOOTHS  •  INSTANT PRINTS  •  EVENT PRINTING  •  SOUVENIR PHOTOS",
   },
   {
-    title: "Photo",
-    image: "https://lifestylesafter50.com/wp-content/uploads/sites/3/2025/07/photos-7666143_1280.jpg",
-    description: "Our food photography service captures the essence of your dishes, making them look as delectable as they taste.",
-    link: "/portfolio/photo",
+    id: "02",
+    title: "Photography",
+    tagline: "Capturing Light & Emotion",
+    image: "https://images.unsplash.com/photo-1519741497674-611481863552?w=1400&q=90&fit=crop",
+    description: "Our photography service captures the essence of your moments, making them look as timeless as they feel — with cinematic precision and artistic intent.",
+    link: "/photography",
+    ticker: "PORTRAITURE  •  EDITORIAL  •  EVENTS  •  COMMERCIAL  •  LIFESTYLE",
   },
   {
+    id: "03",
     title: "Videography",
-    image: "https://ftp.nfi.edu/wp-content/uploads/2021/10/Videography-vs-Cinematography.png",
-    description: "Turning moments into memories. Our videography service captures the heart and soul of your special occasions, creating lasting memories.",
-    link: "/portfolio/videography",
+    tagline: "Stories in Motion",
+    image: "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=1400&q=90&fit=crop",
+    description: "Turning moments into memories. Our videography service captures the heart and soul of your special occasions, creating lasting cinematic narratives.",
+    link: "/videography",
+    ticker: "CINEMATIC  •  BRAND FILMS  •  EVENTS  •  DOCUMENTARY  •  SOCIAL CONTENT",
   },
   {
-    title: "Photobooth",
-    image: "https://madhatphotobooth.com/wp-content/uploads/2019/12/cripps-barn-photo-booth-setup-1-1024x768.jpg",
-    description: "Snapshot memories: Our photobooths add a touch of fun to your events and gatherings. Let your guests capture spontaneous moments and share them instantly.",
-    link: "/portfolio/photobooth",
-  },
-  {
-    title: "SMM",
-    image: "https://media.geeksforgeeks.org/wp-content/uploads/20231117175150/marketing-landing-page.webp",
+    id: "04",
+    title: "Social Media",
+    tagline: "Your Digital Presence",
+    image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=1400&q=90&fit=crop",
     description: "We manage your social media presence, creating engaging content and interacting with your audience to boost your online visibility and reputation.",
-    link: "/portfolio/smm",
+    link: "/contact",
+    ticker: "CONTENT CREATION  •  STRATEGY  •  ENGAGEMENT  •  GROWTH  •  ANALYTICS",
   },
-
 ];
 
-export default function Services() {
+function ServiceCard({ service, index }: { service: typeof services[0]; index: number }) {
+  const [hovered, setHovered] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const ref = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
+      { threshold: 0.12 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <div style={{ backgroundColor: '#000', color: '#fff', fontFamily: 'Proza Libre, sans-serif', margin: 0, overflowX: 'hidden' }}>
-      <Navigation isScrolled={false} />
-      <main>
-        {/* Hero Section */}
-        <section className="hero relative h-screen flex items-center justify-center overflow-hidden px-6" style={{ backgroundColor: '#000' }}>
-          <div className="hero-text absolute text-center font-black uppercase text-white mix-blend-mode-screen opacity-80" style={{ fontSize: '15vw', letterSpacing: '-2vw' }}>
-            SERVICES
+    <article
+      ref={ref}
+      className="relative overflow-hidden group cursor-pointer"
+      style={{
+        height: "85vh",
+        minHeight: "480px",
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0)" : "translateY(48px)",
+        transition: `opacity 0.9s ease ${index * 0.12}s, transform 0.9s ease ${index * 0.12}s`,
+      }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      {/* Background image */}
+      <Image
+        src={service.image}
+        alt={service.title}
+        fill
+        className="object-cover"
+        style={{
+          transform: hovered ? "scale(1.06)" : "scale(1)",
+          transition: "transform 1.4s cubic-bezier(0.25, 1, 0.5, 1)",
+          filter: "brightness(0.65)",
+        }}
+      />
+
+      {/* Dark cinematic overlay */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.2) 100%)",
+          opacity: hovered ? 0.92 : 0.75,
+          transition: "opacity 0.5s ease",
+        }}
+      />
+
+      {/* Cyan border reveal on hover */}
+      <div
+        className="absolute inset-0 border border-[#29CEF2] pointer-events-none"
+        style={{ opacity: hovered ? 0.4 : 0, transition: "opacity 0.4s ease" }}
+      />
+
+      {/* Content */}
+      <div className="absolute inset-0 flex flex-col justify-end p-10 md:p-14 z-10">
+
+        {/* Index number */}
+        <span
+          className="text-[#29CEF2]/30 text-[10px] tracking-[0.4em] uppercase font-medium mb-6 transition-all duration-500"
+          style={{ opacity: hovered ? 1 : 0.5 }}
+        >
+          [ {service.id} ]
+        </span>
+
+        {/* Tagline */}
+        <p
+          className="text-white/40 text-[10px] tracking-[0.3em] uppercase font-light mb-3 transition-all duration-500"
+          style={{ opacity: hovered ? 0.7 : 0.4 }}
+        >
+          {service.tagline}
+        </p>
+
+        {/* Title */}
+        <h2
+          className={`${playfair.className} font-black uppercase text-white mb-0`}
+          style={{
+            fontSize: "clamp(2.5rem, 6vw, 5rem)",
+            letterSpacing: "-0.02em",
+            textShadow: hovered ? "0 0 12px rgba(41,206,242,0.4), 0 0 30px rgba(41,206,242,0.15)" : "none",
+            transition: "text-shadow 0.5s ease",
+          }}
+        >
+          {service.title}
+        </h2>
+
+        {/* Description — revealed on hover */}
+        <p
+          className="text-white/55 text-sm leading-relaxed mt-5 font-light max-w-[560px] transition-all duration-500"
+          style={{
+            opacity: hovered ? 1 : 0,
+            transform: hovered ? "translateY(0)" : "translateY(12px)",
+          }}
+        >
+          {service.description}
+        </p>
+
+        {/* CTA — revealed on hover */}
+        <div
+          className="mt-7 transition-all duration-500"
+          style={{
+            opacity: hovered ? 1 : 0,
+            transform: hovered ? "translateX(0)" : "translateX(-10px)",
+          }}
+        >
+          <Link
+            href={service.link}
+            className="text-[10px] tracking-[0.25em] uppercase text-white/80 hover:text-[#29CEF2] transition-colors border-b border-white/30 hover:border-[#29CEF2] pb-1 inline-flex items-center gap-3"
+          >
+            EXPLORE SERVICE
+            <span className="text-[#29CEF2] text-sm">→</span>
+          </Link>
+        </div>
+      </div>
+
+      {/* Bottom ticker strip */}
+      <div
+        className="absolute bottom-0 left-0 right-0 overflow-hidden py-2 border-t border-white/5 z-10 transition-opacity duration-500"
+        style={{ opacity: hovered ? 1 : 0 }}
+      >
+        <div
+          className="whitespace-nowrap text-white/20 text-[9px] tracking-[0.3em] uppercase"
+          style={{ animation: "tickerScroll 20s linear infinite" }}
+        >
+          {Array(4).fill(`${service.ticker}  •  `).join("")}
+        </div>
+      </div>
+    </article>
+  );
+}
+
+export default function Services() {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
+  const [heroVisible, setHeroVisible] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+      setScrollY(window.scrollY);
+    };
+    window.addEventListener("scroll", handleScroll);
+    const t = setTimeout(() => setHeroVisible(true), 120);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      clearTimeout(t);
+    };
+  }, []);
+
+  const parallaxOffset = scrollY * 0.35;
+
+  return (
+    <div className="min-h-screen" style={{ backgroundColor: "#050505" }}>
+      <Navigation isScrolled={isScrolled} />
+
+      <main className="text-white min-h-screen">
+
+        {/* ── Hero Section ── */}
+        <section className="relative h-screen flex items-end overflow-hidden" style={{ backgroundColor: "#050505" }}>
+
+          {/* Background image with parallax */}
+          <div
+            className="absolute inset-[-8%] z-0"
+            style={{ transform: `translateY(${parallaxOffset}px)` }}
+          >
+            <Image
+              src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1800&q=90&fit=crop"
+              alt="Services Hero"
+              fill
+              priority
+              className="object-cover"
+              quality={90}
+            />
           </div>
-          <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[#000] to-transparent"></div>
-        </section>
 
-        {/* Services List */}
-        <section className="services-section">
-          {services.map((service, idx) => (
-            <article
-              key={service.title}
-              className="service-card"
-              style={{ backgroundImage: `url(${service.image})` }}
+          {/* Cinematic dark overlay */}
+          <div className="absolute inset-0 z-[1]" style={{
+            background: "linear-gradient(to bottom, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.28) 40%, rgba(0,0,0,0.65) 70%, rgba(0,0,0,0.97) 100%)"
+          }} />
+
+          {/* Subtle cyan vignette */}
+          <div className="absolute inset-0 z-[2] pointer-events-none" style={{
+            background: "radial-gradient(ellipse 110% 75% at 60% 50%, rgba(41,206,242,0.07) 0%, transparent 60%)"
+          }} />
+
+          {/* Hero Content */}
+          <div
+            className="relative z-10 w-full max-w-[1600px] mx-auto px-8 md:px-16 pb-24 md:pb-32"
+            style={{
+              opacity: heroVisible ? 1 : 0,
+              transform: heroVisible ? "translateY(0)" : "translateY(32px)",
+              transition: "opacity 1.1s ease, transform 1.1s ease",
+            }}
+          >
+            <p className="text-[10px] tracking-[0.4em] uppercase text-[#29CEF2]/80 mb-6 font-medium">
+              [ What We Offer ]
+            </p>
+
+            <h1
+              className={`${playfair.className} font-black uppercase text-white leading-[0.88]`}
+              style={{
+                fontSize: "clamp(72px, 12vw, 180px)",
+                letterSpacing: "-0.02em",
+                textShadow: "0 0 12px rgba(41,206,242,0.55), 0 0 40px rgba(41,206,242,0.25), 0 0 80px rgba(41,206,242,0.12)",
+              }}
             >
-              <div className="service-content">
-                <h3 className="service-title">{service.title}</h3>
-                <p className={`service-description ${service.title === "Onsite Printing" || service.title === "Photo" || service.title === "Videography" || service.title === "Photobooth" || service.title === "SMM" ? 'iceland-font' : ''}`}>{service.description}</p>
-                <a href={service.link} className="service-link">
-                  VIEW PORTFOLIO
-                </a>
+              SER<br />
+              <span style={{ WebkitTextStroke: "2px rgba(255,255,255,0.35)", color: "transparent" }}>VICES</span>
+            </h1>
+
+            <div className="mt-10 flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-12">
+              <div className="w-16 h-[1px] bg-[#29CEF2]/50" />
+              <p className="text-white/50 text-xs tracking-[0.28em] uppercase font-light">
+                Premium Creative Services Tailored for You
+              </p>
+              <div className="hidden sm:flex items-center gap-2 ml-auto text-white/25 text-[10px] tracking-[0.2em] uppercase">
+                <span className="w-5 h-[1px] bg-white/20" />
+                {services.length} Services
               </div>
-            </article>
-          ))}
+            </div>
+          </div>
+
+          {/* Ticker */}
+          <div className="absolute bottom-[4.5rem] left-0 right-0 z-10 overflow-hidden py-3 border-t border-white/5">
+            <div
+              className="whitespace-nowrap text-white/30 text-[10px] tracking-[0.25em] uppercase"
+              style={{ animation: "tickerScroll 30s linear infinite" }}
+            >
+              {Array(6).fill("PHOTOGRAPHY  •  VIDEOGRAPHY  •  ON-SITE PRINTING  •  BRAND IDENTITY  •  SOCIAL MEDIA  •  ").join("")}
+            </div>
+          </div>
+
+          {/* Scroll indicator */}
+          <div className="absolute bottom-6 left-0 right-0 z-10 flex flex-col items-center gap-2">
+            <div className="w-[1px] h-8 bg-white/20 animate-pulse" />
+            <p className="text-white/25 text-[9px] uppercase tracking-[0.3em]">Scroll</p>
+          </div>
+
+          {/* Bottom gradient */}
+          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#050505] to-transparent z-[3] pointer-events-none" />
         </section>
 
-        {/* Contact CTA */}
-        <section className="cta-section">
-          <h1>Ready to create memories?</h1>
-          <a href="/contact" className="cta-button">
-            GET IN TOUCH
-          </a>
+        {/* ── Services Grid ── */}
+        <section className="px-6 md:px-16 pt-16 pb-32" style={{ backgroundColor: "#050505" }}>
+          <div className="max-w-[1600px] mx-auto">
+
+            {/* Section label */}
+            <div className="border-t border-white/5 pt-10 flex items-center justify-between mb-12">
+              <p className="text-[10px] tracking-[0.3em] uppercase text-white/25">Our Services</p>
+              <p className="hidden md:block text-[10px] tracking-[0.25em] uppercase text-white/20">{services.length} Offered</p>
+            </div>
+
+            {/* Service cards grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {services.map((service, idx) => (
+                <ServiceCard key={service.id} service={service} index={idx} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── CTA Section ── */}
+        <section className="px-6 md:px-16 pb-32" style={{ backgroundColor: "#050505" }}>
+          <div className="max-w-[1600px] mx-auto border-t border-white/5 pt-16 text-center">
+            <p className="text-[10px] tracking-[0.4em] uppercase text-[#29CEF2]/70 mb-6">Ready to Create?</p>
+            <h2
+              className={`${playfair.className} text-5xl md:text-7xl font-black uppercase text-white mb-10`}
+              style={{
+                textShadow: "0 0 12px rgba(41,206,242,0.3), 0 0 40px rgba(41,206,242,0.12)",
+              }}
+            >
+              Let&apos;s Make<br />
+              <span style={{ WebkitTextStroke: "2px rgba(255,255,255,0.35)", color: "transparent" }}>Something Great</span>
+            </h2>
+            <Link
+              href="/contact"
+              className="text-[10px] font-light tracking-[0.2em] uppercase text-white/80 hover:text-[#29CEF2] transition-colors border border-white/20 px-10 py-3 hover:border-[#29CEF2] inline-block"
+            >
+              Get In Touch
+            </Link>
+          </div>
         </section>
 
       </main>
-      <div style={{ marginTop: '0', paddingTop: '0' }}>
-        <Footer />
-      </div>
+
+      <Footer />
+
       <style jsx global>{`
-        .footer_footer {
-          position: relative;
-          z-index: 0;
-          margin-top: 0 !important;
-        }
-      `}</style>
-
-      <style jsx>{`
-        .hero-text {
-          animation: floatText 12s ease-in-out infinite alternate;
-        }
-        @keyframes floatText {
-          0% { transform: translateY(-20px) rotate(-2deg); }
-          50% { transform: translateY(20px) rotate(2deg); }
-          100% { transform: translateY(-20px) rotate(-2deg); }
-        }
-
-        .services-section {
-          height: 100vh;
-          overflow-y: auto;
-          scroll-snap-type: y mandatory;
-          -webkit-overflow-scrolling: touch;
-        }
-
-        .service-card {
-          scroll-snap-align: start;
-          height: 100vh;
-          background-size: cover;
-          background-position: center;
-          background-repeat: no-repeat;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          position: relative;
-          color: white;
-        }
-
-        .service-card::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: rgba(0, 0, 0, 0.5);
-          z-index: 1;
-        }
-
-        .service-content {
-          position: relative;
-          z-index: 2;
-          text-align: center;
-          max-width: 600px;
-          padding: 0 20px;
-          height: 100vh;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .service-title {
-          font-family: 'Cormorant Garamond', serif;
-          font-size: 6rem;
-          font-weight: 400;
-          margin-bottom: 1rem;
-          letter-spacing: -0.5px;
-          white-space: nowrap;
-        }
-
-        .service-description {
-          font-family: 'Proza Libre', sans-serif;
-          font-size: 1.1rem;
-          line-height: 1.6;
-          margin-bottom: 2rem;
-          color: #ccc;
-        }
-
-        .service-link {
-          display: inline-block;
-          font-family: 'Proza Libre', sans-serif;
-          font-size: 11px;
-          text-transform: uppercase;
-          letter-spacing: 2px;
-          border-bottom: 1px solid rgba(255,255,255,0.3);
-          padding-bottom: 4px;
-          transition: border-color 0.3s;
-          color: white;
-        }
-
-        .service-card:hover .service-link {
-          border-color: #fff;
-        }
-
-        .cta-section {
-          height: 100vh;
-          background: #000;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          border-top: 1px solid #333;
-          z-index: 5;
-          position: relative;
-        }
-
-        .cta-section h1 {
-          font-family: 'Iceland', sans-serif;
-          font-size: 9rem;
-          margin-bottom: 2rem;
-          color: #fff;
-        }
-
-        .cta-button {
-          font-size: 10px;
-          font-weight: 300;
-          letter-spacing: 0.2em;
-          text-transform: uppercase;
-          color: rgba(255, 255, 255, 0.8);
-          transition: color 0.3s, border-color 0.3s;
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          padding: 8px 24px;
-          text-decoration: none;
-          display: inline-block;
-        }
-
-        .cta-button:hover {
-          color: #29CEF2;
-          border-color: #29CEF2;
-        }
-
-        @media (max-width: 768px) {
-          .hero-text {
-            font-size: 25vw !important;
-            letter-spacing: -4vw !important;
-          }
-          .services-header h2 {
-            font-size: 40px;
-          }
-          .chapter-num {
-            font-size: 60px;
-          }
-          .card-content h3 {
-            font-size: 32px;
-          }
-          .card-content p {
-            font-size: 16px;
-          }
+        @keyframes tickerScroll {
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
         }
       `}</style>
     </div>

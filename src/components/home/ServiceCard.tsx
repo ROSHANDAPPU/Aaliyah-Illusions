@@ -1,16 +1,31 @@
 "use client";
 import React, { useState } from "react";
 import { LucideProps } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface ServiceCardProps {
     icon: React.ComponentType<LucideProps>;
     title: string;
     description: string;
     image: string;
+    mediaType?: string;
 }
 
 export default function ServiceCard({ icon: Icon, title, description, image, mediaType }: ServiceCardProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const router = useRouter();
+
+  const handlePortfolioClick = () => {
+    if (title === "PHOTOGRAPHY") {
+      router.push('/photography');
+    } else if (title === "VIDEOGRAPHY") {
+      router.push('/videography');
+    } else if (title === "ON-SITE PRINTING") {
+      router.push('/on-site-printing');
+    } else {
+      router.push('/portfolio');
+    }
+  };
 
   return (
     <div
@@ -19,15 +34,28 @@ export default function ServiceCard({ icon: Icon, title, description, image, med
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Background Image */}
+      {/* Background Media */}
       <div className="absolute inset-0 overflow-hidden">
-        <img
-          src={image}
-          alt={title}
-          className={`w-full h-full object-cover transition-transform duration-700 ${
-            isHovered ? 'scale-110' : 'scale-100'
-          }`}
-        />
+        {mediaType === 'video' ? (
+          <video
+            src={image}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className={`w-full h-full object-cover transition-transform duration-700 ${
+              isHovered ? 'scale-110' : 'scale-100'
+            }`}
+          />
+        ) : (
+          <img
+            src={image}
+            alt={title}
+            className={`w-full h-full object-cover transition-transform duration-700 ${
+              isHovered ? 'scale-110' : 'scale-100'
+            }`}
+          />
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
       </div>
 
@@ -54,9 +82,10 @@ export default function ServiceCard({ icon: Icon, title, description, image, med
           </p>
           
           <div
-            className={`flex items-center text-[#29CEF2] font-medium text-xs tracking-[0.2em] uppercase transition-all duration-500 ${
+            className={`flex items-center text-[#29CEF2] font-medium text-xs tracking-[0.2em] uppercase transition-all duration-500 cursor-pointer font-sans ${
               isHovered ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'
             }`}
+            onClick={handlePortfolioClick}
           >
             <span>SEE PORTFOLIO</span>
             <span className="ml-3">→</span>
